@@ -9,7 +9,8 @@ use common\models\LoginForm;
 use common\models\Reports;
 use common\models\ReportsSearch;
 use common\models\PatientTestsSearch;
-use mPDF;
+//use mPDF;
+use Mpdf\Mpdf;
 
 /**
  * Site controller
