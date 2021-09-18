@@ -9,29 +9,32 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="tests-type-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'reference_interval') ?>
-
-    <?= $form->field($model, 'specimen_type') ?>
-
-    <?= $form->field($model, 'testing_frequency') ?>
+    <?php 
+        $form = ActiveForm::begin([
+            'action' => ['index'],
+            'method' => 'get',
+        ]); 
+    ?>
+    <div class="col-sm-4">
+    </br>
+        <p> <?= Html::a('Create Tests Type', ['create'], ['class' => 'btn btn-success']) ?> </p>
+    </div>
+    <div class="col-sm-8" style="border-left: 1px solid #bababa;">
+        <div class="col-sm-6"><?= $form->field($model, 'category_name')->label('Test Category') ?></div>
+        <div class="col-sm-6"><?= $form->field($model, 'name')->label('Test Name') ?></div>
+        <br>
+        <div class="form-group col-sm-6">
+            <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+            <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        </div>
+    </div>
+    
+    <?php ActiveForm::end(); ?>
 
     <?php // echo $form->field($model, 'comments') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
+    
 
-    <?php ActiveForm::end(); ?>
+    
 
 </div>

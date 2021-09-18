@@ -14,13 +14,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'category_name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'reference_interval')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'specimen_type')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'testing_frequency')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'comments')->textInput(['maxlength' => true]) ?>
+    <!-- <?= Html::activeTextInput($model, 'cost', ['placeholder' => '', 'class' => 'form-control']); ?> -->
+    
+    <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

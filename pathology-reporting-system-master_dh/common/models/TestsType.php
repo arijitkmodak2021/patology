@@ -16,6 +16,7 @@ use Yii;
  * @property string $comments
  * @property integer $status
  * @property integer $is_deleted
+ * @property integer $cost
  */
 class TestsType extends \yii\db\ActiveRecord
 {
@@ -33,8 +34,8 @@ class TestsType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'reference_interval'], 'required'],
-            [['name', 'reference_interval', 'specimen_type', 'testing_frequency', 'comments'], 'string', 'max' => 255],
+            [['name', 'category_name', 'reference_interval', 'cost'], 'required'],
+            [['name', 'category_name', 'reference_interval', 'comments', 'cost'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,11 +46,13 @@ class TestsType extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'reference_interval' => 'Reference Interval',
-            'specimen_type' => 'Specimen Type',
-            'testing_frequency' => 'Testing Frequency',
-            'comments' => 'Comments',
+            'name' => 'Test Name',
+            'category_name' => 'Test Category',
+            'comments' => 'Normal Range',
+            'reference_interval' => 'Unit',
+            'cost' => 'Cost (₹)',
+            //'specimen_type' => 'Specimen Type',
+            //'testing_frequency' => 'Testing Frequency',
         ];
     }
 
@@ -61,7 +64,11 @@ class TestsType extends \yii\db\ActiveRecord
 
         $model = new TestsType();
         $model->name = $this->name;
+        $model->category_name = $this->category_name;
         $model->reference_interval = $this->reference_interval;
+        $model->comments = $this->comments;
+        $model->cost = $this->cost;
+
         return $model->save() ? $model : null;
     }
 }

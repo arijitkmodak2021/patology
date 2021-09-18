@@ -19,7 +19,7 @@ class TestsTypeSearch extends TestsType
     {
         return [
             [['id'], 'integer'],
-            [['name', 'reference_interval', 'specimen_type', 'testing_frequency', 'comments'], 'safe'],
+            [['name', 'category_name', 'reference_interval', 'comments'], 'safe'],
         ];
     }
 
@@ -41,6 +41,8 @@ class TestsTypeSearch extends TestsType
      */
     public function search($params)
     {
+        //print '<pre>'; print_r($params); print('</pre>');
+
         $query = TestsType::find();
 
         // add conditions that should always apply here
@@ -50,6 +52,7 @@ class TestsTypeSearch extends TestsType
         ]);
 
         $this->load($params);
+
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -63,9 +66,10 @@ class TestsTypeSearch extends TestsType
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'category_name', $this->category_name])
             ->andFilterWhere(['like', 'reference_interval', $this->reference_interval])
-            ->andFilterWhere(['like', 'specimen_type', $this->specimen_type])
-            ->andFilterWhere(['like', 'testing_frequency', $this->testing_frequency])
+            //->andFilterWhere(['like', 'specimen_type', $this->specimen_type])
+            //->andFilterWhere(['like', 'testing_frequency', $this->testing_frequency])
             ->andFilterWhere(['like', 'comments', $this->comments])
             ->andFilterWhere(['is_deleted' => 0]);
 
