@@ -34,7 +34,7 @@ class TestsType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'category_name', 'reference_interval', 'cost'], 'required'],
+            [['name', 'category_name', 'reference_interval'], 'required'],
             [['name', 'category_name', 'reference_interval', 'comments', 'cost'], 'string', 'max' => 255],
         ];
     }

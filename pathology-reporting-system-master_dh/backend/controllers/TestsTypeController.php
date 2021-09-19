@@ -85,11 +85,15 @@ class TestsTypeController extends Controller
     {
         $model = new TestsType();
 
+        $test_categories = Yii::$app->db->createCommand('SELECT id, name FROM test_categories where status = 1;')->queryAll();
+        //$model->test_categories = $test_categories;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'test_categories' => $test_categories
             ]);
         }
     }

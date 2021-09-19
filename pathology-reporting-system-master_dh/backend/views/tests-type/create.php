@@ -9,6 +9,9 @@ use yii\helpers\Html;
 $this->title = 'Create Tests Type';
 $this->params['breadcrumbs'][] = ['label' => 'Tests Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+
+
 ?>
 <!-- Main content -->
 <section class="content">
@@ -21,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $this->render('_form', [
                     'model' => $model,
+                    'test_categories' => $test_categories
                 ]) ?>
             </div>
         </div><!-- /.col-->

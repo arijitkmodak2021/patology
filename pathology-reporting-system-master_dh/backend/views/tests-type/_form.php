@@ -6,6 +6,14 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\TestsType */
 /* @var $form yii\widgets\ActiveForm */
+
+print '<pre>';
+print_r($test_categories);
+print '</pre>';
+
+for 
+
+
 ?>
 
 <div class="box-body pad">
@@ -14,7 +22,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'category_name') ->dropDownList(
+            //$test_categories,           // Flat array ('id'=>'label')
+            ['options' => [                        
+                    
+                ]
+            ],
+            ['prompt'=> 'Select a Catrgory']    // options
+        ); 
+    ?>
 
     <?= $form->field($model, 'reference_interval')->textInput(['maxlength' => true]) ?>
 
