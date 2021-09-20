@@ -1,0 +1,101 @@
+@page {
+    margin: 0 !important;
+    padding: 0 !important;
+    size: Legal Portrait;
+    border: none !important;
+}
+@media print
+{
+    body {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .container {
+        /* width: 816px;
+        height: 1344; */
+        padding: 0 10px;
+    }
+    .logo-image {
+        width: 50px;
+    }
+    .margin-bottom-30 {
+        margin-bottom: 10px !important;
+    }
+    .header_text, h2 {
+        font-size: 25px !important;
+    }
+    .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5,.col-sm-6, .col-sm-7, .col-sm-9, .col-sm-10 {
+            float: left;
+    }
+    .col-sm-10 {
+        width: 83.33333333%;
+    }
+    .col-sm-9 {
+        width: 75%;
+    }
+    .col-sm-7 {
+        width: 58.33333333%;
+    }
+    .col-sm-6 {
+        width: 50%;
+    }
+    .col-sm-5 {
+        width: 41.66666667%;
+    }
+    .col-sm-4 {
+        width: 33.33333333%;
+    }
+    .col-sm-3 {
+        width: 25%;
+    }
+    .col-sm-2 {
+        width: 16.66666667%;
+    }
+    .description_content {
+        padding: 15px !important;
+        padding-bottom: 0 !important;
+    }
+    .description_list {
+        padding: 23px 0 10px;
+    }
+    .text-size-10 {
+        font-size: 18px !important;
+        margin-bottom: 0 !important;
+    }
+    .description_list {
+        margin-top: 0 !important;
+    }
+    .no-float {
+        float: none !important;
+    }
+    .text-size-12 {
+        font-size: 12px !important;
+    }
+    .text-size-17 {
+        font-size: 17px !important;
+    }
+    .text-size-18 {
+        font-size: 18px !important;
+    }
+    .text-size-20 {
+        font-size: 20px !important;
+    }
+    .text-size-25 {
+        font-size: 25px !important;
+    }
+    .text-size-30 {
+        font-size: 30px !important;
+    }
+    .print_hide{
+        display: none !important;
+    }
+    .well {
+        border: none !important;
+        min-height: auto !important;
+        border-radius: 0 !important;
+    }
+    .logo-image-outer {
+        padding-top: 15px !important;
+    }
+}
