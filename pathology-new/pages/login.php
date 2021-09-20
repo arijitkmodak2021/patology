@@ -1,8 +1,10 @@
-<?php 
+<?php
+    include("includes/config.php");
+    
     if (isset($_SESSION['is_logged_in']) && ($_SESSION['is_logged_in'] == 1)) {
-        //header("Location:".$site_url."index.php?pages=disability_list");
+        header("Location:".$site_url."index.php?pages=dashboard");
     }
-
+    
     //include(PHYSICAL_PATH."includes/generate_captcha.php");
 
     // $phptextObj         = new generate_captchaClass();

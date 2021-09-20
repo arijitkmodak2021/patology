@@ -35,7 +35,7 @@
     }
     elseif($mode_name == 'user_login') {
 
-        print_r($_REQUEST);
+        //print_r($_REQUEST);
         //$login_type = (isset($_REQUEST['login_type'])) ? $_REQUEST['login_type'] : 'opt';
         $login_sql  = "SELECT * FROM users WHERE user_name='".mysqli_real_escape_string($link, $_REQUEST['loginUsername'])."' AND password='".$_REQUEST['loginPassword']."' ";
         //echo 'A: '.$login_sql; die;
@@ -73,7 +73,7 @@
             }
             
             //print_r($_COOKIE);die;
-            header("Location:".$site_url."index.php?pages=disability_list");
+            header("Location:".$site_url."index.php?pages=dashboard");
         }
         else {
             $_SESSION['error_msg']  = 'Invalid username or password. Please try again.';

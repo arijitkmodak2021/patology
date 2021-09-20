@@ -12,6 +12,7 @@
     ini_set("error_reporting", E_ALL);
     // Report all errors except E_NOTICE
     error_reporting(E_ALL & ~E_NOTICE);
+    
 ?>
 
 <html>
@@ -96,9 +97,129 @@
                     unset($_SESSION['error_msg']);
             }
             
-            if(isset($_REQUEST['pages']))
-                get_pages($_REQUEST['pages']);
-            else get_pages('');
+            
+            if (isset($_SESSION['is_logged_in']) && ($_SESSION['is_logged_in'] == 1)) {
         ?>
+                <div class="page">
+                    <!-- Main Navbar-->
+                    <header class="header z-index-50">
+                        <nav class="navbar py-3 px-0 shadow-sm text-white position-relative">
+                            <!-- Search Box-->
+                            <div class="search-box shadow-sm">
+                                <button class="dismiss d-flex align-items-center">
+                                    <svg class="svg-icon svg-icon-heavy">
+                                    <use xlink:href="#close-1"> </use>
+                                    </svg>
+                                </button>
+                                    <form id="searchForm" action="#" role="search">
+                                    <input class="form-control shadow-0" type="text" placeholder="What are you looking for...">
+                                </form>
+                            </div>
+                            <div class="container-fluid w-100">
+                                <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
+                                    <!-- Navbar Header-->
+                                    <div class="navbar-header">
+                                      <!-- Navbar Brand --><a class="navbar-brand d-none d-sm-inline-block" href="index.html">
+                                        <div class="brand-text d-none d-lg-inline-block"><span><strong>Pathology lab Report</strong></span></div>
+                                        <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
+                                      <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" href="#"><span></span><span></span><span></span></a>
+                                    </div>
+                                    <!-- Navbar Menu -->
+                                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                                      <!-- Search-->
+                                      <li class="nav-item d-flex align-items-center"><a id="search" href="#">
+                                         <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                           <use xlink:href="#find-1"> </use>
+                                         </svg></a></li>
+                                      
+                                      <!-- Logout    -->
+                                      <li class="nav-item"><a class="nav-link text-white" href="login.html"> <span class="d-none d-sm-inline">Logout</span>
+                                         <svg class="svg-icon svg-icon-xs svg-icon-heavy">
+                                           <use xlink:href="#security-1"> </use>
+                                         </svg></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </header>
+                    <div class="page-content d-flex align-items-stretch"> 
+                        <!-- Side Navbar -->
+                        <nav class="side-navbar z-index-40">
+                            <!-- Sidebar Header-->
+                            <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                              <div class="ms-3 title">
+                                <h1 class="h4 mb-2">Mark Stephen</h1>
+                                <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
+                              </div>
+                            </div>
+                            <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Menu</span>
+                            <ul class="list-unstyled py-4">
+                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'dashboard')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=dashboard" ?>"> 
+                                    <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                      <use xlink:href="#real-estate-1"> </use>
+                                    </svg>Dashboard </a></li>
+                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'test_types')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=test_types" ?>"> 
+                                    <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                      <use xlink:href="#portfolio-grid-1"> </use>
+                                    </svg>Test Types </a></li>
+                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'test_reports')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=test_reports" ?>"> 
+                                    <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                                      <use xlink:href="#sales-up-1"> </use>
+                                    </svg>Test Reports </a></li>
+                            </ul>
+                        </nav>
+                        <div class="content-inner w-100">
+                            <?php        
+                                if(isset($_REQUEST['pages']))
+                                    get_pages($_REQUEST['pages']);
+                                else get_pages('');
+                            ?>
+                            <!-- Page Footer-->
+                            <footer class="position-absolute bottom-0 bg-darkBlue text-white text-center py-3 w-100 text-xs" id="footer">
+                                <div class="container-fluid">
+                                    <div class="row gy-2">
+                                        <div class=" text-sm-start">
+                                            <p class="mb-0"><strong>Kalna Super Specility Hospital</strong> - Pathology Department  &nbsp;&nbsp;&nbsp;&nbsp; &copy;<?php echo date('Y')-1; ?> - <?php echo date('Y'); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+        <?php
+            }
+            else{
+                if(isset($_REQUEST['pages']))
+                    get_pages($_REQUEST['pages']);
+                else get_pages('');
+            }
+        ?>
+        <script>
+            // ------------------------------------------------------- //
+            //   Inject SVG Sprite - 
+            //   see more here 
+            //   https://css-tricks.com/ajaxing-svg-sprite/
+            // ------------------------------------------------------ //
+            function injectSvgSprite(path) {
+            
+                var ajax = new XMLHttpRequest();
+                ajax.open("GET", path, true);
+                ajax.send();
+                ajax.onload = function(e) {
+                var div = document.createElement("div");
+                div.className = 'd-none';
+                div.innerHTML = ajax.responseText;
+                document.body.insertBefore(div, document.body.childNodes[0]);
+                }
+            }
+            // this is set to BootstrapTemple website as you cannot 
+            // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+            // while using file:// protocol
+            // pls don't forget to change to your domain :)
+            injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+            
+            
+        </script>
     </body>
 </html>
