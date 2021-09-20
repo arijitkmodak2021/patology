@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2021 at 10:02 AM
+-- Generation Time: Sep 20, 2021 at 07:43 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -135,24 +135,67 @@ INSERT INTO `patient_tests` (`id`, `patient_report_fk_id`, `tests_type_fk_id`, `
 
 CREATE TABLE `tests_type` (
   `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `serial_no` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `reference_interval` varchar(255) NOT NULL,
-  `specimen_type` varchar(255) DEFAULT NULL,
-  `testing_frequency` varchar(255) DEFAULT NULL,
-  `comments` varchar(255) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `category_name` varchar(255) NOT NULL,
+  `unit` varchar(255) DEFAULT NULL,
+  `cost` decimal(10,8) DEFAULT NULL,
+  `normal_range` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tests_type`
 --
 
-INSERT INTO `tests_type` (`id`, `name`, `reference_interval`, `specimen_type`, `testing_frequency`, `comments`, `status`, `is_deleted`) VALUES
-(1, 'Glucose, Fasting', '70-99 mg/dL', '', '', '3.86-5.45 mmol/L', 1, 0),
-(2, 'Glucose, Random', '70-139 mg/dL', '', '', '3.86-7.66 mmol/L', 1, 0),
-(3, 'Hemoglobin, Men', '13.3-17.7 g/dL', '', '', '133-177 g/L', 1, 0),
-(4, 'Hemoglobin, Women', '11.7-15.7 g/dL', '', '', '117-157 g/L', 1, 0);
+INSERT INTO `tests_type` (`id`, `category_id`, `serial_no`, `name`, `category_name`, `unit`, `cost`, `normal_range`, `status`) VALUES
+(1, 0, 0, 'Glucose, Fasting', '70-99 mg/dL', '', '0.00000000', '3.86-5.45 mmol/L', 1),
+(2, 0, 0, 'Glucose, Random', '70-139 mg/dL', '', '0.00000000', '3.86-7.66 mmol/L', 1),
+(3, 0, 0, 'Hemoglobin, Men', '13.3-17.7 g/dL', '', '0.00000000', '133-177 g/L', 1),
+(4, 0, 0, 'Hemoglobin, Women', '11.7-15.7 g/dL', '', '0.00000000', '117-157 g/L', 1),
+(6, 0, 1, 'Fasting', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '60 - 110', 1),
+(7, 0, 8, 'Serum Uric Acid', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '1.5 - 7.0', 1),
+(8, 0, 3, 'Post Prantial', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '80 - 160', 1),
+(9, 0, 4, 'Random', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '80 - 140', 1),
+(10, 0, 5, 'Blood Urea', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '15 - 45', 1),
+(11, 0, 6, 'Serum Creatinine', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '0.6 - 1.5', 1),
+(12, 0, 7, 'Serum T.Cholesterol', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '150 - 200', 1),
+(13, 0, 9, 'Serum Calcium', 'BIO-CHEMISTRY', 'mg/dl', '99.99999999', '8.5 - 11.00', 1),
+(14, 0, 10, 'T.Cholesterol', 'LIPID PROFILE', 'mg/dl', '99.99999999', '125 - 200', 1),
+(15, 0, 11, 'Triglycerides', 'LIPID PROFILE', 'mg/dl', '99.99999999', '25 - 200', 1),
+(16, 0, 12, 'HDL', 'LIPID PROFILE', 'mg/dl', '99.99999999', '35 - 80', 1),
+(17, 0, 13, 'LDL', 'LIPID PROFILE', 'mg/dl', '99.99999999', '85 - 130', 1),
+(18, 0, 14, 'VLDL', 'LIPID PROFILE', 'mg/dl', '50.00000000', '05 - 40', 1),
+(19, 0, 15, 'S TYPHI \"O\"', 'SERUM WIDAL', '', '60.00000000', '', 1),
+(20, 0, 16, 'S TYPHI \"H\"', 'SERUM WIDAL', '', '55.00000000', '', 1),
+(21, 0, 17, 'S PARA TYPHI AH', 'SERUM WIDAL', '', '60.00000000', '', 1),
+(22, 0, 18, 'S PARA TYPHI BH', 'SERUM WIDAL', '', '50.00000000', '', 1),
+(23, 0, 19, 'APPEARANCE', 'SERUM WIDAL', '', '50.00000000', '', 1),
+(24, 0, 20, 'ALBUMIN', 'SERUM WIDAL', '', '50.00000000', '', 1),
+(25, 0, 21, 'SUGAR', 'SERUM WIDAL', 'BILE SALTS', '50.00000000', '', 1),
+(26, 0, 22, 'ACETONE', 'SERUM WIDAL', 'BILE PIGMENTS', '60.00000000', '', 1),
+(27, 0, 23, 'URINE PREGNANCY', 'URINE ANALYSIS', '', '60.00000000', '', 1),
+(28, 0, 24, 'Deposits', 'URINE ANALYSIS', '', '55.00000000', '', 1),
+(29, 0, 25, 'HAEMOGLOBIN', 'HAEMATOLOGY', 'gms%', '60.00000000', 'M 13.5 - 15.5 / F 12.5 - 14.5 gms', 1),
+(30, 0, 26, 'PACKED CELL VOLUME', 'HAEMATOLOGY', '', '65.00000000', 'F 36 - 47% / M 40 - 54%', 1),
+(31, 0, 27, 'Total W.B.C Count', 'HAEMATOLOGY', '', '70.00000000', '4000 - 10000 /Cumm', 1),
+(32, 0, 28, 'Total R.B.C Count', 'HAEMATOLOGY', '', '99.99999999', '4.5 - 6.5 Million/ Cumm', 1),
+(33, 0, 29, 'N. POLYMORPHS', 'DIFFERENTIAL COUNT', '%', '65.00000000', '40 - 65 %', 1),
+(34, 0, 30, 'LYMPHOCYTES', 'DIFFERENTIAL COUNT', '%', '90.00000000', '35 - 55 %', 1),
+(35, 0, 31, 'EOSINOPHILS', 'DIFFERENTIAL COUNT', '%', '80.00000000', '1 - 6 %', 1),
+(36, 0, 32, 'MONOCYTE', 'DIFFERENTIAL COUNT', '%', '70.00000000', '2 - 8 %', 1),
+(37, 0, 33, 'BASOPHIL', 'DIFFERENTIAL COUNT', '%', '60.00000000', '0 - 1 %', 1),
+(38, 0, 34, 'ESR: 1 / 2 Hour', 'DIFFERENTIAL COUNT', 'mm', '60.00000000', 'M 7 - 15', 1),
+(39, 0, 35, 'ESR: 1 Hour', 'DIFFERENTIAL COUNT', 'mm', '60.00000000', 'F 12 - 17', 1),
+(40, 0, 36, 'Absolute Eosinophils Count', 'DIFFERENTIAL COUNT', 'Ce', '50.00000000', '40 - 440 Ce/Cumm', 1),
+(41, 0, 37, 'Platelet Count', 'DIFFERENTIAL COUNT', 'Ce', '60.00000000', '1 - 4 Lak Ce/Cumm', 1),
+(42, 0, 38, 'BI Group', 'DIFFERENTIAL COUNT', '', '70.00000000', '', 1),
+(43, 0, 39, 'Rh. Typing', 'DIFFERENTIAL COUNT', '', '50.00000000', '', 1),
+(44, 0, 40, 'Bleeding Time', 'DIFFERENTIAL COUNT', 'Mts', '55.00000000', '1 - 6 Mts', 1),
+(45, 0, 41, 'Clotting Time', 'DIFFERENTIAL COUNT', 'Mts', '60.00000000', '8 - 18 Mts', 1),
+(46, 0, 42, 'M P Card', 'DIFFERENTIAL COUNT', '', '60.00000000', '', 1),
+(47, 0, 43, 'M F', 'DIFFERENTIAL COUNT', '', '50.00000000', '', 1);
 
 -- --------------------------------------------------------
 
@@ -257,7 +300,7 @@ ALTER TABLE `patient_tests`
 -- AUTO_INCREMENT for table `tests_type`
 --
 ALTER TABLE `tests_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `users`
