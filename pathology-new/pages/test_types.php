@@ -92,7 +92,7 @@
 												<th>Test Name</th>
 												<th>Test Category</th>
 												<th>Normal Range (unit)</th>
-												<th>Cost</th>
+												<!--<th>Cost</th>-->
 												<th>Operations</th>
 											</tr>
 										</thead>
@@ -108,7 +108,7 @@
 														'<td>'.$type_data['name'].'</td>'.
 														'<td>'.$type_data['category_name'].'</td>'.
 														'<td>'.$normal_range.' '.$unit.'</td>'.
-														'<td>₹ '.$cost.'</td>'.
+														//'<td>₹ '.$cost.'</td>'.
 														'<td></td>'.
 													   '</tr>';
 													   
