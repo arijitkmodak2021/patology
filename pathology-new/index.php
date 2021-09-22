@@ -158,7 +158,7 @@
                                     <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                       <use xlink:href="#real-estate-1"> </use>
                                     </svg>Dashboard </a></li>
-                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'test_types')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=test_types" ?>"> 
+                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'test_types' || $_REQUEST['pages'] == 'create_test_type')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=test_types" ?>"> 
                                     <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                       <use xlink:href="#portfolio-grid-1"> </use>
                                     </svg>Test Types </a></li>

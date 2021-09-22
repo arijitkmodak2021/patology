@@ -43,6 +43,9 @@ a.selected
 .text-center {
     text-align: center;
 }
+.text-right {
+    text-align: right;
+}
 .logo-image-outer {
     padding-top: 20px;
 }
@@ -181,4 +184,7 @@ a.selected
     background: transparent;
     border: none;
     cursor: pointer;
+}
+.hidden{
+    display: none;
 }
