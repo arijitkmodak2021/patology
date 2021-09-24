@@ -162,7 +162,7 @@
                                     <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                       <use xlink:href="#portfolio-grid-1"> </use>
                                     </svg>Test Types </a></li>
-                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'test_reports')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=test_reports" ?>"> 
+                                <li class="sidebar-item <?php echo (isset($_REQUEST['pages']) && ($_REQUEST['pages'] == 'test_reports' || $_REQUEST['pages'] == 'create_test_report')) ? 'active' : '' ?>"><a class="sidebar-link" href="<?php echo $site_url."index.php?pages=test_reports" ?>"> 
                                     <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                                       <use xlink:href="#sales-up-1"> </use>
                                     </svg>Test Reports </a></li>

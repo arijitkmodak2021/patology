@@ -185,6 +185,6 @@ a.selected
     border: none;
     cursor: pointer;
 }
-.hidden{
+.hidden, .hide{
     display: none;
 }

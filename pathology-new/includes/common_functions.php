@@ -90,6 +90,31 @@
         header("Location:".$site_url."index.php?pages=login");
 
     }
+    elseif($mode_name == 'test_type_insert'){
+        $cat_id         = $_REQUEST['cat_id'];
+        $cat_details    = mysqli_fetch_array(mysqli_query($link, "SELECT test_category FROM test_categories WHERE id = '".$cat_id."';"));
+        
+        $insert_query   =   'insert into tests_type set 
+                                    category_id = "'.addslashes(stripslashes($_REQUEST['cat_id'])).'", 
+                                    name = "'.addslashes(stripslashes($_REQUEST['name'])).'", 
+                                    category_name = "'.$cat_details['test_category'].'", 
+                                    unit = "'.addslashes(stripslashes($_REQUEST['unit'])).'", 
+                                    cost = "'.addslashes(stripslashes($_REQUEST['cost'])).'", 
+                                    normal_range = "'.addslashes(stripslashes($_REQUEST['normal_range'])).'", 
+                                    status = 1';
+        
+        if(mysqli_query($link, $insert_query)) {
+            $_SESSION['msg']  = 'Test type ('.$_REQUEST['name'].') added successfully.';
+            header("Location:".$site_url."index.php?pages=test_types");
+            exit();
+        }
+        else {
+            $_SESSION['error_msg']  = 'Failed to add test type ('.$_REQUEST['name'].'). Please try again.';
+            header("Location:".$site_url."index.php?pages=test_types");
+            exit();    
+        }                         
+        
+    }
     elseif($mode_name == 'confirm_submit') {
 
         $user_id    = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : 0;

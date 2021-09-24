@@ -213,6 +213,47 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ------------------------------------------------------- //
+    // test type create Form Validation 
+    // ------------------------------------------------------ //
+    let typeForm = document.querySelector('.test_type_create');
+    if (typeForm) {
+        new window.JustValidate('.test_type_create', {
+            rules: {
+                cat_id: {
+                    required: true,
+                },
+                //category_name: {
+                //    required: function(element){
+                //        return ($("#create_new").val() == 1) ? true : false;
+                //    }
+                //},
+                type_name: {
+                    required: true,
+                },
+                unit: {
+                    required: true,
+                },
+                normal_range: {
+                    required: true,
+                }
+            },
+            messages: {
+                cat_id: 'Please select a  category.',
+                category_name: 'Please enter category name.',
+                type_name: 'Please enter test type name.',
+                unit: 'Please enter unit value.',
+                normal_range: 'Please enter normal range value.'
+            },
+            invalidFormCallback: function () {
+                let errorInputs = document.querySelectorAll('.test_type_create input[required]');
+                bsValidationBehavior(errorInputs, typeForm);
+                typeForm.addEventListener('keyup', () => bsValidationBehavior(errorInputs, typeForm))
+            },
+        });
+    }
+
+
 
     // ------------------------------------------------------- //
     // Register Form Validation

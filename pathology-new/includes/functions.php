@@ -143,4 +143,23 @@ function thumbnail($fileThumb, $file, $Twidth, $Theight, $tag)
 }
 /************************* Thumbnail Function - Ends *************************/
 
+
+function generate_rand_id($length = 5, $table_column = '', $table_name = '') {
+	
+	$a 	= '';
+	for ($i = 0; $i < $length; $i++) 
+		$a .= mt_rand(0,9);
+	
+	if($table_column != '') {
+		
+		$test_category_list_sql  	= "select * from test_categories order by test_category asc";
+		$count_rs1	= mysqli_query($link, $test_category_list_sql);
+		$types_category_arr	= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
+		
+	}
+	
+}
+
+
+
 ?>

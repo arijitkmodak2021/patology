@@ -11,6 +11,28 @@
 	$types_category_arr	= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
 ?>
 
+<script>
+	function create_category(val) {
+		if(val == 'open'){
+			$('#create_new').val(1);
+			$('#new_category').removeClass('hide');
+			$('#create_button').text('Close');
+			$('#create_button').attr('href', 'javascript:create_category(\'close\');');
+			$("#cat_id").attr('disabled', 'disabled');
+			$('#cat_id').removeAttr('required');
+			$('#cat_id option:selected').removeAttr('selected');
+		}
+		else{
+			$('#create_new').val(0);
+			$('#new_category').addClass('hide');
+			$('#create_button').text('Create new');
+			$('#create_button').attr('href', 'javascript:create_category(\'open\');');
+			$("#cat_id").removeAttr('disabled');
+			$('#cat_id').addAttr('required');
+		}
+	}
+</script>
+
 <!-- Page Header-->
 <header class="bg-white shadow-sm px-4 py-3 z-index-20">
 	<div class="container-fluid px-0">
@@ -40,11 +62,13 @@
 						<h3 class="h4 mb-0">&nbsp;</h3>
 					</div>
 					<div class="card-body">
-						<form class="form-horizontal">
+						<form name="test_type_create" id="test_type_create" action="<?php echo $site_url."includes/common_functions.php" ?>" method="post" class="test_type_create form-horizontal">
+							<input type="hidden" id="mode" name="mode" value="test_type_insert" />
+							<input type="hidden" id="create_new" name="create_new" value="0" />
 							<div class="row gy-2 mb-4">
 								<label class="col-sm-3 form-label text-right" for="inputHorizontalElOne">Test Category</label>
 								<div class="col-sm-6">
-									<select name="cat_id" id="cat_id" class="form-select" id="inlineFormSelectPref">
+									<select name="cat_id" id="cat_id" class="form-select" id="inlineFormSelectPref" required data-validate-field="cat_id">
 										<option value="">Select Category</option>
 										<?php
 											foreach ($types_category_arr as $category_det) {
@@ -54,27 +78,34 @@
 										?>
 									</select>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-3 hide">
 									<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 									<a href="javascript:create_category('open')" id="create_button" style="line-height: 1.5;" class="selected">Create new</a>
 								</div>
 							</div>
+							<div id="new_category" class="row gy-2 mb-4 hide">
+								<label class="col-sm-3 form-label text-right" for="inputHorizontalElTwo">Category Name</label>
+								<div class="col-sm-6">
+									<input class="form-control" name="category_name" id="category_name" id="inputHorizontalElTwo" type="text" data-validate-field="category_name" placeholder="">
+								</div>
+							</div>
+							<br>
 							<div class="row gy-2 mb-4">
 								<label class="col-sm-3 form-label text-right" for="inputHorizontalElTwo">Test Type Name</label>
 								<div class="col-sm-6">
-									<input class="form-control" name="name" id="type_name" id="inputHorizontalElTwo" type="text" placeholder="">
+									<input class="form-control" name="name" id="type_name" id="inputHorizontalElTwo" type="text" required data-validate-field="type_name" placeholder="">
 								</div>
 							</div>
 							<div class="row gy-2 mb-4">
 								<label class="col-sm-3 form-label text-right" for="inputHorizontalElTwo">Unit</label>
 								<div class="col-sm-6">
-									<input class="form-control" name="unit" id="unit" type="text" placeholder="">
+									<input class="form-control" name="unit" id="unit" type="text" required data-validate-field="unit" placeholder="">
 								</div>
 							</div>
 							<div class="row gy-2 mb-4">
 								<label class="col-sm-3 form-label text-right" for="inputHorizontalElTwo">Normal Range</label>
 								<div class="col-sm-6">
-									<input class="form-control" name="normal_range" id="normal_range" type="text" placeholder="">
+									<input class="form-control" name="normal_range" id="normal_range" required data-validate-field="normal_range" type="text" placeholder="">
 								</div>
 							</div>
 							<div class="row gy-2 mb-4 hidden">
