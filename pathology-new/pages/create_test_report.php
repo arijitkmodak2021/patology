@@ -1,6 +1,6 @@
 <?php
 	include("includes/config.php");
-
+	
 	if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
 	{
 	    header("Location:".$site_url."index.php?pages=login");
@@ -23,13 +23,41 @@
 	
 	$doctor_details_sql	= mysqli_query($link, "SELECT * FROM doctor_list order by name asc;");
 	$doctor_details_arr = mysqli_fetch_all($doctor_details_sql, MYSQLI_ASSOC);
+	
 ?>
 
+<script src="js/materialize.js"></script>
+
 <script>
-	// Treeview Initialization
-$(document).ready(function() {
-  $('.treeview').mdbTreeview();
-});
+	//document.addEventListener('DOMContentLoaded', function() {
+	//	var elem = document.querySelector('.collapsible.expandable');
+	//	var elem2 = document.querySelector('.collapsible.expandable2');
+	//	var instance = M.Collapsible.init(elem, {
+	//		accordion: false
+	//	});
+	//	var instance2 = M.Collapsible.init(elem2, {
+	//		accordion: false
+	//	});
+	//});
+	
+	$(document).ready(function(){
+		$('.collapsible').collapsible();
+	});
+
+	var selected_ids	= []
+	function testhandleClick(e, val_id) {
+		
+		console.log($(e).attr('id')+' '+$(e).attr('name'))
+		if ($(e).is(':checked')) {
+			selected_ids.push($(e).attr('id'));
+			$('#'+val_id).removeAttr('readonly');
+		}
+		else{
+			selected_ids.splice( $.inArray($(e).attr('id'), selected_ids), 1 );
+			$('#'+val_id).attr('readonly', 'readonly');
+		}
+		console.log(selected_ids)
+	}
 </script>
 
 <!-- Page Header-->
@@ -42,11 +70,11 @@ $(document).ready(function() {
 <div class="bg-white">
 	<div class="container-fluid">
 		<nav aria-label="breadcrumb">
-		  <ol class="breadcrumb mb-0 py-3">
-			<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=dashboard" ?>">Dashboard</a></li>
-			<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=test_reports" ?>">Test Reports</a></li>
-			<li class="breadcrumb-item active fw-light" aria-current="page">Generate</li>
-		  </ol>
+			<ol class="breadcrumb mb-0 py-3">
+				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=dashboard" ?>">Dashboard</a></li>
+				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=test_reports" ?>">Test Reports</a></li>
+				<li class="breadcrumb-item active fw-light" aria-current="page">Generate</li>
+			</ol>
 		</nav>
 	</div>
 </div>
@@ -172,52 +200,101 @@ $(document).ready(function() {
 									<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Search</button>
 								</div>
 							</div>
-							<div>
-								<div class="treeview w-20 border">
-  <h6 class="pt-3 pl-3">Folders</h6>
-  <hr>
-  <ul class="mb-1 pl-3 pb-2">
-    <li><i class="fas fa-angle-right rotate"></i>
-      <span><i class="far fa-envelope-open ic-w mx-1"></i>Mail</span>
-      <ul class="nested">
-        <li><i class="far fa-bell ic-w mr-1"></i>Offers</li>
-        <li><i class="far fa-address-book ic-w mr-1"></i>Contacts</li>
-        <li><i class="fas fa-angle-right rotate"></i>
-          <span><i class="far fa-calendar-alt ic-w mx-1"></i>Calendar</span>
-          <ul class="nested">
-            <li><i class="far fa-clock ic-w mr-1"></i>Deadlines</li>
-            <li><i class="fas fa-users ic-w mr-1"></i>Meetings</li>
-            <li><i class="fas fa-basketball-ball ic-w mr-1"></i>Workouts</li>
-            <li><i class="fas fa-mug-hot ic-w mr-1"></i>Events</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><i class="fas fa-angle-right rotate"></i>
-      <span><i class="far fa-folder-open ic-w mx-1"></i>Inbox</span>
-      <ul class="nested">
-        <li><i class="far fa-folder-open ic-w mr-1"></i>Admin</li>
-        <li><i class="far fa-folder-open ic-w mr-1"></i>Corporate</li>
-        <li><i class="far fa-folder-open ic-w mr-1"></i>Finance</li>
-        <li><i class="far fa-folder-open ic-w mr-1"></i>Other</li>
-      </ul>
-    </li>
-    <li><i class="fas fa-angle-right rotate"></i>
-      <span><i class="far fa-gem ic-w mx-1"></i>Favourites</span>
-      <ul class="nested">
-          <li><i class="fas fa-pepper-hot ic-w mr-1"></i>Restaurants</li>
-          <li><i class="far fa-eye ic-w mr-1"></i>Places</li>
-          <li><i class="fas fa-gamepad ic-w mr-1"></i>Games</li>
-          <li><i class="fas fa-cocktail ic-w mr-1"></i>Coctails</li>
-          <li><i class="fas fa-pizza-slice ic-w mr-1"></i>Food</li>
-        </ul>
-    </li>
-    <li><i class="far fa-comment ic-w mr-1"></i>Notes</li>
-    <li><i class="fas fa-cogs ic-w mr-1"></i>Settings</li>
-    <li><i class="fas fa-desktop ic-w mr-1"></i>Devices</li>
-    <li><i class="fas fa-trash-alt ic-w mr-1"></i>Deleted Items</li>
-  </ul>
-</div>
+							<br>
+							<div class="row gy-2 mb-4">
+								<div class="col-sm-4">
+									<div class="card-header" style="box-shadow: none; padding-left: 0;">
+										<h3 class="h4 mb-0"><span style="border-bottom: 1px solid #bababa; padding: 0 15px; line-height: 2;">Chosse and enter test report values:</span></h3>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row gy-2 mb-4">
+								<?php
+									$test_main_cat_list_sql	= mysqli_query($link, "SELECT main_category FROM `test_categories` group by 1 order by 1 asc;");
+									$test_main_cat_list_arr	= mysqli_fetch_all($test_main_cat_list_sql, MYSQLI_ASSOC);
+									$total_value			= count($test_main_cat_list_arr);
+									$i	= 0;
+									$j 	= 0;
+									
+									if(!empty($test_main_cat_list_arr)){
+										echo '<div class="col-sm-6">
+												<ul class="collapsible">';
+										foreach($test_main_cat_list_arr as $test_main_cat){
+											
+											$test_cat_list_sql	= mysqli_query($link, "SELECT id, test_category FROM `test_categories` where main_category = '".$test_main_cat['main_category']."' order by test_category asc;");
+											$test_cat_list_arr	= mysqli_fetch_all($test_cat_list_sql, MYSQLI_ASSOC);
+											$t_value			= count($test_cat_list_arr);
+											
+											echo '<li>
+													<div class="collapsible-header"><i class="fas fa-vial"></i><b>'.ucfirst($test_main_cat['main_category']).'</b></div>
+													<div class="collapsible-body">';
+														if(!empty($test_cat_list_arr)) {
+															echo '<ul class="show_tree_list">';
+															foreach($test_cat_list_arr as $test_cat) {
+																$test_list_sql	= mysqli_query($link, "SELECT * FROM `tests_type` where category_id = '".$test_cat['id']."' order by name asc;");
+																$test_list_arr	= mysqli_fetch_all($test_list_sql, MYSQLI_ASSOC);
+																$ty_value		= count($test_list_arr);
+									?>				
+																	<li>
+																		<span class="tree_head"><strong><?php echo ucfirst($test_cat['test_category']) ?>:</strong></span>
+																		<?php
+																			if(!empty($test_list_arr)){
+																				echo '<ul class="tree_view">';
+																				foreach($test_list_arr as $cat) {
+																					
+																					$normal_range 	= ($cat['normal_range'] != '') ? ucwords(strtolower($cat['normal_range'])) : '';
+																					$unit	= ($cat['unit'] != '') ? '('.ucwords(strtolower($cat['unit'])).')' : '';
+																					
+																					echo '<li>
+																							<div class="row" style="margin: 0">
+																								<div class="col-sm-4" style="padding-right: 0; padding-top: 5px;">
+																									<span style="display: initial"><input class="form-check-input " name="test_checkbox['.$test_cat['id'].']['.$cat['id'].'][]" onclick="testhandleClick(this, \'test_value_'.$test_cat['id'].'_'.$cat['id'].'_'.$j.'\');" id="test_checkbox_'.$test_cat['id'].'_'.$cat['id'].'_'.$j.'" value="1" type="checkbox"></span>
+																									<span class="test_name_span">'.ucwords(strtolower($cat['name'])).'</span>
+																								</div>
+																								<div class="col-sm-4" style="padding-right: 0;">
+																									<input class="form-control" name="test_value['.$test_cat['id'].']['.$cat['id'].'][]" id="test_value_'.$test_cat['id'].'_'.$cat['id'].'_'.$j.'" id="inputHorizontalElTwo" readonly="true" value="" type="text" data-validate-field="patient_id" placeholder="">
+																								</div>
+																								<div class="col-sm-4" style="padding-right: 0; padding-top: 5px;">
+																									<span>'.$normal_range.'  '.$unit.'</span>
+																								</div>
+																							</div>
+																						</li>';
+																						
+																						$j++;
+																				}
+																				echo '</ul>';
+																			}
+																			else{
+																				echo '<ul class="tree_view">
+																						<li><span style="padding-left: 20px">No tests</span></li>
+																					</ul>';
+																			}
+																		?>
+																	</li>
+									<?php
+															}
+															echo '</ul>';
+														}
+														else{
+															echo '<ul class="show_tree_list">
+																	<li><span class="tree_head"><strong>No Category Found</strong></span></li>
+																</ul>';
+														}
+												
+											echo 	'</div>
+												</li>';
+											$i++;
+											
+											if(($total_value > $i) && ($i % 3) == 0)
+												echo '</div>
+													<div class="col-sm-6">
+														<ul class="collapsible expandable_'.$i.'">';
+										}
+										echo '</ul>
+										</div>';
+									}
+								?>
 							</div>
 							
 							<div class="row gy-2 mb-4 hidden">

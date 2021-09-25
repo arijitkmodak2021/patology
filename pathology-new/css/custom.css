@@ -188,3 +188,101 @@ a.selected
 .hidden, .hide{
     display: none;
 }
+
+
+
+.collapsible.popout {
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.collapsible {
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: .5rem 0 1rem 0;
+}
+ul:not(.browser-default) {
+    padding-left: 0;
+    list-style-type: none;
+}
+.collapsible.popout>li {
+    -webkit-box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    margin: 0 24px;
+    -webkit-transition: margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.collapsible-header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1.5;
+    padding: 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.collapsible-header i {
+    width: 2rem;
+    font-size: 1.6rem;
+    display: inline-block;
+    text-align: center;
+    margin-right: 1rem;
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+.collapsible-body {
+    display: none;
+    border-bottom: 1px solid #ddd;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.show_tree_list {
+	font-size: 15px;
+	word-break: break-all;
+}
+.show_tree_list li{
+	padding-bottom: 25px;
+}
+.show_tree_list li .tree_head
+{
+	border-bottom: 1px solid #bababa;
+	padding: 0px 20px;
+	text-align: left;
+	line-height: 2;
+}
+.tree_view{
+	padding-top: 10px;
+	border-left: 1px solid #bababa;
+	margin-left: 30px;
+}
+.tree_view li
+{
+	border-bottom: 1px solid #bababa;
+	width: auto;
+	padding: 10px 0 10px 0;
+}
+.test_name_span {
+	display: inline-block;
+	width: 90%;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
