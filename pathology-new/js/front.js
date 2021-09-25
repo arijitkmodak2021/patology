@@ -212,6 +212,55 @@ document.addEventListener('DOMContentLoaded', function () {
             },
         });
     }
+    
+	// ------------------------------------------------------- //
+	// Login Form Validation
+	// ------------------------------------------------------ //
+	let patientRegisterForm = document.querySelector('.patient_register_form');
+	if (patientRegisterForm) {
+		new window.JustValidate('.patient_register_form', {
+			rules: {
+				serial_no: {
+					required: true,
+				},
+				patient_name: {
+				    required: true,
+				},
+				patient_age: {
+				    required: true,
+				    number: true
+				},
+				mobile_no: {
+				    required: true,
+				    number: true
+				},
+				gender_val: {
+				    required: true,
+				},
+				word_no_val: {
+				    required: true,
+				},
+				docotor_name: {
+					required: true,
+				}
+			},
+			messages: {
+				serial_no: 'Please enter serial no.',
+				patient_name: 'Please enter patient\' name.',
+				patient_age: 'Please enter patient\'s age.',
+				mobile_no: 'Please enter mobile no.',
+				gender_val: 'Please select gender.',
+				word_no_val: 'Please select word no.',
+				docotor_name: 'Please select doctor.',
+				
+			},
+			invalidFormCallback: function () {
+				let errorInputs = document.querySelectorAll('.patient_register_form input[required]');
+				bsValidationBehavior(errorInputs, patientRegisterForm);
+				patientRegisterForm.addEventListener('keyup', () => bsValidationBehavior(errorInputs, patientRegisterForm))
+			},
+		});
+	}
 
     // ------------------------------------------------------- //
     // test type create Form Validation 

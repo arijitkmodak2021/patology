@@ -115,6 +115,44 @@
         }                         
         
     }
+	elseif($mode_name == 'patient_register'){
+		
+		$word_no		= $_REQUEST['word_no'];
+		$word_details	= mysqli_fetch_array(mysqli_query($link, "SELECT id, word_name FROM word_details WHERE id = '".$word_no."';"));
+		
+		$docotor_no	= $_REQUEST['docotor_name'];
+		$doctor_details= mysqli_fetch_array(mysqli_query($link, "SELECT id, name FROM doctor_list WHERE id = '".$docotor_no."';"));
+		
+		$insert_query	=   'insert into patient_details set 
+							patient_id = "'.addslashes(stripslashes($_REQUEST['new_patient_id'])).'", 
+							registration_no = "'.addslashes(stripslashes($_REQUEST['serial_no'])).'", 
+							name = "'.addslashes(stripslashes($_REQUEST['patient_name'])).'", 
+							age = "'.addslashes(stripslashes($_REQUEST['patient_age'])).'",
+							mobile_no = "'.addslashes(stripslashes($_REQUEST['mobile_no'])).'",
+							gender = "'.addslashes(stripslashes($_REQUEST['gender'])).'",
+							word_no = "'.addslashes(stripslashes($_REQUEST['word_no'])).'", 
+							word_name = "'.$word_details['word_name'].'",
+							created_by = "'.$_SESSION['username'].'",
+							doctor_name = "'.$doctor_details['name'].'",
+							created_date = "'.date('y-m-d').'",
+							status = 1';
+		
+		
+		if($insert_det = mysqli_query($link, $insert_query)) {
+			
+			$patient_id =  mysqli_insert_id($link);
+			
+			$_SESSION['msg']  = 'Patient ('.$_REQUEST['patient_name'].') added successfully.';
+			header("Location:".$site_url."index.php?pages=create_test_report&patient_id=".$patient_id);
+			exit();
+		}
+		else {
+			$_SESSION['error_msg']  = 'Failed to add patient ('.$_REQUEST['patient_name'].'). Please try again.';
+			header("Location:".$site_url."index.php?pages=create_test_report");
+			exit();    
+		}                         
+	    
+	}
     elseif($mode_name == 'confirm_submit') {
 
         $user_id    = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : 0;

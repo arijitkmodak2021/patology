@@ -6,7 +6,7 @@
 	    header("Location:".$site_url."index.php?pages=login");
 	}
 	
-	$test_category_list_sql  	= "select * from test_categories order by test_category asc";
+	$test_category_list_sql  	= "select * from test_categories order by main_category asc, test_category asc";
 	$count_rs1	= mysqli_query($link, $test_category_list_sql);
 	$types_category_arr	= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
 ?>
@@ -71,10 +71,20 @@
 									<select name="cat_id" id="cat_id" class="form-select" id="inlineFormSelectPref" required data-validate-field="cat_id">
 										<option value="">Select Category</option>
 										<?php
+											$i 	= 0;
+											if($i == 0) echo '<optgroup label="'.$types_category_arr[$i]['main_category'].'">';
 											foreach ($types_category_arr as $category_det) {
+												
+												if(($i > 0) && ($types_category_arr[$i - 1]['main_category'] != $types_category_arr[$i]['main_category']))
+													echo '</optgroup>
+														<optgroup label="'.$types_category_arr[$i]['main_category'].'">';
+													
 												$selected 	= (isset($_REQUEST['cat_id']) && ($_REQUEST['cat_id'] == $category_det['id'])) ? 'selected' : '';
 												echo '<option value="'.$category_det['id'].'" '.$selected.'>'.$category_det['test_category'].'</option>';
+												
+												$i++;
 											}
+											echo '</optgroup>';
 										?>
 									</select>
 								</div>
@@ -117,6 +127,7 @@
 							<div class="row">
 								<div class="col-sm-9 ms-auto">
 									<input class="btn btn-primary" type="submit" value="Submit">
+									<a href="<?php echo $site_url."index.php?pages=test_types" ?>" id="create_button" style="line-height: 1.5; margin-left: 20px;" class="selected">Back</a>
 								</div>
 							</div>
 						</form>

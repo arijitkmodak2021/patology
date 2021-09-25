@@ -8,26 +8,26 @@
 	
 	$cat_search				= (isset($_REQUEST['cat_id'])) ? $_REQUEST['cat_id'] : '';
 	$name_search				= (isset($_REQUEST['test_type_name'])) ? $_REQUEST['test_type_name'] : '';
-	$page_no				= (isset($_REQUEST['page_no'])) ? $_REQUEST['page_no'] : '';
+	$page_no					= (isset($_REQUEST['page_no'])) ? $_REQUEST['page_no'] : '';
 	$conditions				= [];
 	
 	if($cat_search != '')	$conditions[] 	= 'category_id = "'.$cat_search.'"';
 	if($name_search != '')	$conditions[] 	= 'name LIKE "%'.$name_search.'%"';
-	if($page_no != '')	$conditions[] 	= 'page_no = "'.$page_no.'"';
+	if($page_no != '')	$conditions[] 		= 'page_no = "'.$page_no.'"';
 	
 	$conditions_det	= '';
 	if(!empty($conditions))
 		$conditions_det		= ' WHERE '.implode(' AND ', $conditions);	
 	
-	$test_type_list_sql  		= "SELECT * FROM tests_type ".$conditions_det." ORDER BY name asc;";
-	$count_rs       		= mysqli_query($link, $test_type_list_sql);
-	$types_list_arr		= [];
+	$test_type_list_sql			= "SELECT * FROM tests_type ".$conditions_det." ORDER BY category_name asc, name asc;";
+	$count_rs       			= mysqli_query($link, $test_type_list_sql);
+	$types_list_arr			= [];
 		
 	if(mysqli_num_rows($count_rs)>0)
 	    $types_list_arr  		= 	mysqli_fetch_all($count_rs, MYSQLI_ASSOC);
 	else $types_list_arr		= [];
 	
-	$test_category_list_sql  	= "select * from test_categories order by test_category asc";
+	$test_category_list_sql  	= "select * from test_categories order by main_category asc, test_category asc";
 	$count_rs1	= mysqli_query($link, $test_category_list_sql);
 	$types_category_arr	= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
 	
@@ -66,14 +66,24 @@
 											</div>
 										</div>
 										<div class="col-lg-5">
-											<label class="visually-hidden" for="inlineFormSelectPref">Test Category</label>
-											<select name="cat_id" id="cat_id" class="form-select" id="inlineFormSelectPref">
+											<label class="visually-hidden" for="cat_id">Test Category</label>
+											<select name="cat_id" id="cat_id" class="form-select" >
 												<option value="">Select Category</option>
 												<?php
+													$i 	= 0;
+													if($i == 0) echo '<optgroup label="'.$types_category_arr[$i]['main_category'].'">';
 													foreach ($types_category_arr as $category_det) {
+														
+														if(($i > 0) && ($types_category_arr[$i - 1]['main_category'] != $types_category_arr[$i]['main_category']))
+															echo '</optgroup>
+																<optgroup label="'.$types_category_arr[$i]['main_category'].'">';
+															
 														$selected 	= (isset($_REQUEST['cat_id']) && ($_REQUEST['cat_id'] == $category_det['id'])) ? 'selected' : '';
 														echo '<option value="'.$category_det['id'].'" '.$selected.'>'.$category_det['test_category'].'</option>';
+														
+														$i++;
 													}
+													echo '</optgroup>';
 												?>
 											</select>
 										</div>

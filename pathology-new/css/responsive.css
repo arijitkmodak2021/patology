@@ -1,0 +1,7 @@
+@media only screen and (max-width: 768px) {
+	
+	.drop_select_list  .col-sm-6, .drop_select_list  .col-sm-4, .drop_select_list  .col-sm-3 {
+		width: 100%
+	}
+	
+}

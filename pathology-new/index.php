@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
         <!-- Custom stylesheet - for your changes-->
         <link rel="stylesheet" href="css/custom.css">
+	   <link rel="stylesheet" href="css/responsive.css">
         <!-- Favicon-->
         <link rel="shortcut icon" href="img/favicon.ico">
         <!-- Google fonts - Poppins -->
