@@ -24,7 +24,7 @@
 	$doctor_details_sql	= mysqli_query($link, "SELECT * FROM doctor_list order by name asc;");
 	$doctor_details_arr = mysqli_fetch_all($doctor_details_sql, MYSQLI_ASSOC);
 	
-	$patient_id 		= (isset($_SESSION['is_logged_in']) && !empty(isset($_SESSION['is_logged_in']))) ? isset($_SESSION['is_logged_in']) : 0;
+	$reg_patient_id	= (isset($_SESSION['patient_id']) && !empty(isset($_SESSION['patient_id']))) ? isset($_SESSION['patient_id']) : 0;
 	$patien_details_sql	= mysqli_query($link, "SELECT * FROM doctor_list order by name asc;");
 	$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 	
