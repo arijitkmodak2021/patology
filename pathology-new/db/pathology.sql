@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2021 at 08:29 PM
+-- Generation Time: Sep 26, 2021 at 08:48 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -49,24 +49,25 @@ INSERT INTO `doctor_list` (`id`, `name`, `details`, `status`) VALUES
 
 CREATE TABLE `patient_details` (
   `id` int(11) NOT NULL,
-  `patient_id` int(11) NOT NULL,
+  `patient_id` varchar(255) NOT NULL,
   `registration_no` varchar(255) NOT NULL,
   `name` text NOT NULL,
+  `image` text NOT NULL,
   `gender` char(1) NOT NULL,
   `dob` date NOT NULL,
   `age` int(11) NOT NULL,
-  `mobile_no` int(11) NOT NULL,
-  `height` varchar(100) DEFAULT NULL,
-  `weight` varchar(255) DEFAULT NULL,
-  `blood_group` varchar(10) DEFAULT NULL,
-  `address` text DEFAULT NULL,
+  `mobile_no` varchar(255) NOT NULL,
+  `height` varchar(100) NOT NULL,
+  `weight` varchar(255) NOT NULL,
+  `blood_group` varchar(10) NOT NULL,
+  `address` text NOT NULL,
   `word_no` int(11) NOT NULL,
   `word_name` varchar(255) NOT NULL,
-  `created_by` int(11) NOT NULL,
+  `created_by` varchar(255) NOT NULL,
   `doctor_name` varchar(255) NOT NULL,
   `created_date` datetime NOT NULL,
-  `modified_by` int(11) DEFAULT NULL,
-  `modified_date` datetime DEFAULT NULL,
+  `modified_by` int(11) NOT NULL,
+  `modified_date` datetime NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -74,8 +75,8 @@ CREATE TABLE `patient_details` (
 -- Dumping data for table `patient_details`
 --
 
-INSERT INTO `patient_details` (`id`, `patient_id`, `registration_no`, `name`, `gender`, `dob`, `age`, `mobile_no`, `height`, `weight`, `blood_group`, `address`, `word_no`, `word_name`, `created_by`, `doctor_name`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
-(5, 0, 'fasdawsda', 'sdasd', 'M', '0000-00-00', 0, 0, NULL, NULL, NULL, NULL, 2, 'Word No 2', 0, 'Arijit Kumar Modak', '2021-09-25 00:00:00', NULL, NULL, 1);
+INSERT INTO `patient_details` (`id`, `patient_id`, `registration_no`, `name`, `image`, `gender`, `dob`, `age`, `mobile_no`, `height`, `weight`, `blood_group`, `address`, `word_no`, `word_name`, `created_by`, `doctor_name`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
+(5, 'P-202189637', 'reg-1234567890', 'Jane Doe', '', 'F', '1970-01-01', 24, '9123456789', '5\"7\'', '68', 'B+', '12/3 Sample Road, Newcity, Dist1, West Bengal, 75321', 2, 'Word No 2', 'operator_01', 'Arijit Kumar Modak', '2021-09-25 00:00:00', 0, '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -85,21 +86,73 @@ INSERT INTO `patient_details` (`id`, `patient_id`, `registration_no`, `name`, `g
 
 CREATE TABLE `patient_report` (
   `id` int(11) NOT NULL,
-  `patient_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `report_id` int(11) NOT NULL,
+  `patient_id` varchar(255) NOT NULL,
+  `cat_grp_name` varchar(255) NOT NULL,
+  `main_cat_id` int(11) NOT NULL,
+  `main_cat_name` varchar(255) NOT NULL,
   `test_type_id` int(11) NOT NULL,
   `test_type_name` varchar(255) NOT NULL,
   `test_type_unit` varchar(255) NOT NULL,
   `normal_range` varchar(255) NOT NULL,
   `result_value` varchar(255) NOT NULL,
   `create_date` datetime NOT NULL,
-  `created_by` varchar(255) NOT NULL,
-  `modified_date` datetime NOT NULL,
-  `modified_by` varchar(255) NOT NULL,
-  `deleted_on` datetime NOT NULL,
-  `deleted_by` varchar(255) NOT NULL,
-  `notes` text NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `patient_report`
+--
+
+INSERT INTO `patient_report` (`id`, `p_id`, `report_id`, `patient_id`, `cat_grp_name`, `main_cat_id`, `main_cat_name`, `test_type_id`, `test_type_name`, `test_type_unit`, `normal_range`, `result_value`, `create_date`, `status`) VALUES
+(2, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 10, 'Blood Urea', 'mg/dl', '15 - 45', '1', '2021-09-26 00:00:00', 1),
+(3, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 6, 'Fasting', 'mg/dl', '60 - 110', '2', '2021-09-26 00:00:00', 1),
+(4, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 8, 'Post Prantial', 'mg/dl', '80 - 160', '3', '2021-09-26 00:00:00', 1),
+(5, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 9, 'Random', 'mg/dl', '80 - 140', '4', '2021-09-26 00:00:00', 1),
+(6, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 13, 'Serum Calcium', 'mg/dl', '8.5 - 11.00', '5', '2021-09-26 00:00:00', 1),
+(7, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 11, 'Serum Creatinine', 'mg/dl', '0.6 - 1.5', '6', '2021-09-26 00:00:00', 1),
+(8, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 12, 'Serum T.Cholesterol', 'mg/dl', '150 - 200', '7', '2021-09-26 00:00:00', 1),
+(9, 5, 6, '0', 'Blood Test', 1, 'BIO-CHEMISTRY', 7, 'Serum Uric Acid', 'mg/dl', '1.5 - 7.0', '9', '2021-09-26 00:00:00', 1),
+(10, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 40, 'Absolute Eosinophils Count', 'Ce', '40 - 440 Ce/Cumm', '1', '2021-09-26 00:00:00', 1),
+(11, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 37, 'BASOPHIL', '%', '0 - 1 %', '3', '2021-09-26 00:00:00', 1),
+(12, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 42, 'BI Group', '', '', '4', '2021-09-26 00:00:00', 1),
+(13, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 44, 'Bleeding Time', 'Mts', '1 - 6 Mts', '5', '2021-09-26 00:00:00', 1),
+(14, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 45, 'Clotting Time', 'Mts', '8 - 18 Mts', '6', '2021-09-26 00:00:00', 1),
+(15, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 35, 'EOSINOPHILS', '%', '1 - 6 %', '8', '2021-09-26 00:00:00', 1),
+(16, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 38, 'ESR: 1 / 2 Hour', 'mm', 'M 7 - 15', '8', '2021-09-26 00:00:00', 1),
+(17, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 39, 'ESR: 1 Hour', 'mm', 'F 12 - 17', '9', '2021-09-26 00:00:00', 1),
+(18, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 34, 'LYMPHOCYTES', '%', '35 - 55 %', '1', '2021-09-26 00:00:00', 1),
+(19, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 47, 'M F', '', '', '2', '2021-09-26 00:00:00', 1),
+(20, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 46, 'M P Card', '', '', '3', '2021-09-26 00:00:00', 1),
+(21, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 36, 'MONOCYTE', '%', '2 - 8 %', '5', '2021-09-26 00:00:00', 1),
+(22, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 33, 'N. POLYMORPHS', '%', '40 - 65 %', '7', '2021-09-26 00:00:00', 1),
+(23, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 41, 'Platelet Count', 'Ce', '1 - 4 Lak Ce/Cumm', '5', '2021-09-26 00:00:00', 1),
+(24, 5, 6, '0', 'Blood Test', 2, 'DIFFERENTIAL COUNT', 43, 'Rh. Typing', '', '', '7', '2021-09-26 00:00:00', 1),
+(25, 5, 6, '0', 'Blood Test', 4, 'LIPID PROFILE', 16, 'HDL', 'mg/dl', '35 - 80', '1', '2021-09-26 00:00:00', 1),
+(26, 5, 6, '0', 'Blood Test', 4, 'LIPID PROFILE', 17, 'LDL', 'mg/dl', '85 - 130', '2', '2021-09-26 00:00:00', 1),
+(27, 5, 6, '0', 'Blood Test', 4, 'LIPID PROFILE', 14, 'T.Cholesterol', 'mg/dl', '125 - 200', '3', '2021-09-26 00:00:00', 1),
+(28, 5, 6, '0', 'Blood Test', 4, 'LIPID PROFILE', 15, 'Triglycerides', 'mg/dl', '25 - 200', '4', '2021-09-26 00:00:00', 1),
+(29, 5, 6, '0', 'Blood Test', 4, 'LIPID PROFILE', 18, 'VLDL', 'mg/dl', '05 - 40', '5', '2021-09-26 00:00:00', 1),
+(30, 5, 6, '0', 'Blood Test', 5, 'SERUM WIDAL', 26, 'ACETONE', 'BILE PIGMENTS', '', '1', '2021-09-26 00:00:00', 1),
+(31, 5, 6, '0', 'Blood Test', 5, 'SERUM WIDAL', 24, 'ALBUMIN', '', '', '2', '2021-09-26 00:00:00', 1),
+(32, 5, 6, '0', 'Blood Test', 5, 'SERUM WIDAL', 23, 'APPEARANCE', '', '', '3', '2021-09-26 00:00:00', 1),
+(33, 5, 6, '0', 'Blood Test', 5, 'SERUM WIDAL', 21, 'S PARA TYPHI AH', '', '', '4', '2021-09-26 00:00:00', 1),
+(34, 5, 6, '0', 'Blood Test', 5, 'SERUM WIDAL', 22, 'S PARA TYPHI BH', '', '', '5', '2021-09-26 00:00:00', 1),
+(35, 5, 6, '0', 'Blood Test', 5, 'SERUM WIDAL', 25, 'SUGAR', 'BILE SALTS', '', '8', '2021-09-26 00:00:00', 1),
+(36, 5, 6, '0', 'Sort Blood Test', 3, 'HAEMATOLOGY', 29, 'HAEMOGLOBIN', 'gms%', 'M 13.5 - 15.5 / F 12.5 - 14.5 gms', '6', '2021-09-26 00:00:00', 1),
+(37, 5, 6, '0', 'Sort Blood Test', 3, 'HAEMATOLOGY', 30, 'PACKED CELL VOLUME', '', 'F 36 - 47% / M 40 - 54%', '7', '2021-09-26 00:00:00', 1),
+(38, 5, 6, '0', 'Sort Blood Test', 3, 'HAEMATOLOGY', 49, 'test 1', '45', '70 - 90 mg/l', '8', '2021-09-26 00:00:00', 1),
+(39, 5, 6, '0', 'Sort Blood Test', 3, 'HAEMATOLOGY', 32, 'Total R.B.C Count', '', '4.5 - 6.5 Million/ Cumm', '8', '2021-09-26 00:00:00', 1),
+(40, 5, 6, '0', 'Sort Blood Test', 3, 'HAEMATOLOGY', 31, 'Total W.B.C Count', '', '4000 - 10000 /Cumm', '9', '2021-09-26 00:00:00', 1),
+(41, 5, 6, '0', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '6', '2021-09-26 00:00:00', 1),
+(42, 5, 6, '0', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', '7', '2021-09-26 00:00:00', 1),
+(43, 5, 8, 'P-202189637', 'Sort Blood Test', 3, 'HAEMATOLOGY', 29, 'HAEMOGLOBIN', 'gms%', 'M 13.5 - 15.5 / F 12.5 - 14.5 gms', '16', '2021-09-26 00:00:00', 1),
+(44, 5, 8, 'P-202189637', 'Sort Blood Test', 3, 'HAEMATOLOGY', 30, 'PACKED CELL VOLUME', '', 'F 36 - 47% / M 40 - 54%', '45', '2021-09-26 00:00:00', 1),
+(45, 5, 8, 'P-202189637', 'Sort Blood Test', 3, 'HAEMATOLOGY', 32, 'Total R.B.C Count', '', '4.5 - 6.5 Million/ Cumm', '7', '2021-09-26 00:00:00', 1),
+(46, 5, 8, 'P-202189637', 'Sort Blood Test', 3, 'HAEMATOLOGY', 31, 'Total W.B.C Count', '', '4000 - 10000 /Cumm', '400000', '2021-09-26 00:00:00', 1),
+(47, 5, 8, 'P-202189637', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '67', '2021-09-26 00:00:00', 1),
+(48, 5, 8, 'P-202189637', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', '99', '2021-09-26 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -110,17 +163,23 @@ CREATE TABLE `patient_report` (
 CREATE TABLE `patient_tests` (
   `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `age` int(11) NOT NULL,
-  `sex` varchar(255) NOT NULL,
-  `word` varchar(255) NOT NULL,
-  `serial_no` int(11) NOT NULL,
-  `doctor_id` int(11) NOT NULL,
-  `test_det_type` varchar(255) NOT NULL,
-  `created_date` datetime NOT NULL,
-  `modified_date` datetime DEFAULT NULL,
-  `modified_by` varchar(255) NOT NULL
+  `created_by` varchar(255) NOT NULL,
+  `doctor_name` varchar(255) NOT NULL,
+  `word_no` varchar(255) NOT NULL,
+  `notes` text NOT NULL,
+  `modified_by` varchar(255) NOT NULL,
+  `modified_date` datetime NOT NULL,
+  `create_date` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `patient_tests`
+--
+
+INSERT INTO `patient_tests` (`id`, `patient_id`, `created_by`, `doctor_name`, `word_no`, `notes`, `modified_by`, `modified_date`, `create_date`, `status`) VALUES
+(6, 5, 'operator_01', 'Arijit Kumar Modak', 'Word No 2', '', '', '0000-00-00 00:00:00', '2021-09-26 00:00:00', 1),
+(8, 5, 'operator_01', 'Arijit Kumar Modak', 'Word No 2', '', '', '0000-00-00 00:00:00', '2021-09-26 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -186,8 +245,7 @@ INSERT INTO `tests_type` (`id`, `category_id`, `serial_no`, `name`, `category_na
 (44, 2, 40, 'Bleeding Time', 'DIFFERENTIAL COUNT', 'Mts', '55.00000000', '1 - 6 Mts', 1),
 (45, 2, 41, 'Clotting Time', 'DIFFERENTIAL COUNT', 'Mts', '60.00000000', '8 - 18 Mts', 1),
 (46, 2, 42, 'M P Card', 'DIFFERENTIAL COUNT', '', '60.00000000', '', 1),
-(47, 2, 43, 'M F', 'DIFFERENTIAL COUNT', '', '50.00000000', '', 1),
-(49, 3, 0, 'test 1', 'HAEMATOLOGY', '45', '0.00000000', '70 - 90 mg/l', 1);
+(47, 2, 43, 'M F', 'DIFFERENTIAL COUNT', '', '50.00000000', '', 1);
 
 -- --------------------------------------------------------
 
@@ -302,9 +360,7 @@ ALTER TABLE `patient_report`
 -- Indexes for table `patient_tests`
 --
 ALTER TABLE `patient_tests`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `patient_report_fk_id` (`patient_id`,`serial_no`),
-  ADD KEY `tests_type_fk_id` (`serial_no`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tests_type`
@@ -351,13 +407,13 @@ ALTER TABLE `patient_details`
 -- AUTO_INCREMENT for table `patient_report`
 --
 ALTER TABLE `patient_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `patient_tests`
 --
 ALTER TABLE `patient_tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tests_type`
@@ -382,17 +438,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `word_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `patient_tests`
---
-ALTER TABLE `patient_tests`
-  ADD CONSTRAINT `patient_tests_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `patient_tests_ibfk_2` FOREIGN KEY (`serial_no`) REFERENCES `tests_type` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
