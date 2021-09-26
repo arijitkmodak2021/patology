@@ -6,6 +6,8 @@
 	    header("Location:".$site_url."index.php?pages=login");
 	}
 	
+	
+	
 	$test_category_list_sql	= "select * from test_categories order by test_category asc";
 	$count_rs1	= mysqli_query($link, $test_category_list_sql);
 	$types_category_arr	= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
@@ -24,10 +26,9 @@
 	$doctor_details_sql	= mysqli_query($link, "SELECT * FROM doctor_list order by name asc;");
 	$doctor_details_arr = mysqli_fetch_all($doctor_details_sql, MYSQLI_ASSOC);
 	
-	$reg_patient_id	= (isset($_SESSION['patient_id']) && !empty(isset($_SESSION['patient_id']))) ? isset($_SESSION['patient_id']) : 0;
-	$patien_details_sql	= mysqli_query($link, "SELECT * FROM doctor_list order by name asc;");
+	$reg_patient_id	= (isset($_REQUEST['patient_id']) && !empty($_REQUEST['patient_id'])) ? $_REQUEST['patient_id'] : 0;
+	$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where id = '".$reg_patient_id."';");
 	$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
-	
 ?>
 
 <script src="js/materialize.js"></script>
@@ -77,7 +78,7 @@
 			<ol class="breadcrumb mb-0 py-3">
 				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=dashboard" ?>">Dashboard</a></li>
 				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=test_reports" ?>">Test Reports</a></li>
-				<li class="breadcrumb-item active fw-light" aria-current="page">Generate</li>
+				<li class="breadcrumb-item active fw-light" aria-current="page">Enter Report Details</li>
 			</ol>
 		</nav>
 	</div>
@@ -185,23 +186,51 @@
 								</div>
 							</div>
 						</div>
-						<form name="generate_report" id="generate_report" action="<?php echo $site_url."includes/common_functions.php" ?>" method="post" class="generate_report form-horizontal">
-							<input type="hidden" id="mode" name="mode" value="generate_report" />
+						<form name="search_patient" id="search_patient" action="<?php echo $site_url."includes/common_functions.php" ?>" method="post" class="search_patient form-horizontal">
+							<input type="hidden" id="mode" name="mode" value="search_patient" />
 							<div class="row gy-2 mb-4">
 								<label class="col-sm-3 form-label text-right" for="inputHorizontalElTwo">&nbsp;</label>
 								<div class="col-sm-6">
-									<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Register new Patient</button>
+									<button <?php echo ($reg_patient_id > 0) ? 'disabled' : '' ?> class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Register new Patient</button>
 								</div>
 							</div>
 							<br>
 							<div class="row gy-2 mb-4">
-								<label class="col-sm-3 form-label text-right" for="inputHorizontalElOne">Patient Id</label>
+								<label class="col-sm-3 form-label text-right" style="margin-top: 15px;" for="new_patient_id">Patient Id</label>
 								<div class="col-sm-6">
-									<input class="form-control" name="new_patient_id" id="new_patient_id" id="inputHorizontalElTwo" value="" type="text" data-validate-field="patient_id" >
+									<input class="form-control" name="new_patient_id" id="new_patient_id" <?php echo ($reg_patient_id > 0) ? 'readonly' : '' ?> value="<?php echo $patien_details_arr[0]['patient_id'] ?>" type="text" required data-validate-field="patient_id" >
 								</div>
 								<div class="col-sm-3">
 									<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-									<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Search</button>
+									<button <?php echo ($reg_patient_id > 0) ? 'disabled' : '' ?> class="btn btn-primary" type="submit">Search</button>
+								</div>
+							</div>
+						</form>
+						<form name="generate_report" id="generate_report" action="<?php echo $site_url."includes/common_functions.php" ?>" method="post" class="generate_report form-horizontal">
+							<input type="hidden" id="mode" name="mode" value="generate_report" />
+							<input type="hidden" id="new_p_id" name="new_p_id" value="<?php echo $reg_patient_id ?>" />
+							
+							<div class="row gy-2 mb-4" style="<?php echo ($reg_patient_id == 0) ? 'display: none;' : '' ?>">
+								<label class="col-sm-3 form-label text-right" for="inputHorizontalElOne"></label>
+								<div class="col-sm-6">
+									<div class="card mb-0" style="border: 1px solid #bababa; border-radius: 5px;">
+										<div class="card-body p-0">
+											<!-- Item-->
+											<div class="p-3 d-flex align-items-center">
+												<img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="img/avatar-1.jpg" alt="..." width="50">
+												<div class="ms-3">
+													<h3 class="fw-normal text-dark mb-0" style="padding-bottom: 10px;"><?php echo ucwords(strtolower($patien_details_arr[0]['name'])) ?></h3>
+													<div class="patient_det"> <span>Age: </span>&nbsp; <span class="text-gray-500"><?php echo ucwords(strtolower($patien_details_arr[0]['age'])) ?></span> </div>
+													<div class="patient_det"><span>Sex: </span>&nbsp; <span class="text-gray-500"><?php echo ucwords(strtolower($patien_details_arr[0]['gender'])) ?></span></div>
+													<div class="patient_det"><span>Word No: </span>&nbsp; <span class="text-gray-500"><?php echo ucwords(strtolower($patien_details_arr[0]['word_name'])) ?></span></div>
+													<br>
+													<div class="patient_det"><span>Reg No: </span>&nbsp;<span class="text-gray-500"><?php echo ucwords(strtolower($patien_details_arr[0]['registration_no'])) ?></span></div>
+													<div class="patient_det"><span>Under: </span>&nbsp;<span class="text-gray-500"><?php echo ucwords(strtolower($patien_details_arr[0]['doctor_name'])) ?></span></div>
+												</div>
+												<button class="btn btn-primary edit_patient" type="button">Edit</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<br>
@@ -213,7 +242,6 @@
 										</div>
 									</div>
 								</div>
-							
 								<div class="row gy-2 mb-4 drop_select_list">
 									<?php
 										$test_main_cat_list_sql	= mysqli_query($link, "SELECT main_category FROM `test_categories` group by 1 order by 1 asc;");

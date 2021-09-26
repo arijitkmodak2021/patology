@@ -216,6 +216,28 @@ document.addEventListener('DOMContentLoaded', function () {
 	// ------------------------------------------------------- //
 	// Login Form Validation
 	// ------------------------------------------------------ //
+	let search_patientForm = document.querySelector('.search_patient');
+	if (search_patientForm) {
+		new window.JustValidate('.search_patient', {
+			rules: {
+				patient_id: {
+				    required: true,
+				}
+			},
+			messages: {
+				patient_id: 'Please enter Patient Id',
+			},
+			invalidFormCallback: function () {
+				let errorInputs = document.querySelectorAll('.search_patient input[required]');
+				bsValidationBehavior(errorInputs, search_patientForm);
+				search_patientForm.addEventListener('keyup', () => bsValidationBehavior(errorInputs, search_patientForm))
+			},
+		});
+	}
+    
+	// ------------------------------------------------------- //
+	// Login Form Validation
+	// ------------------------------------------------------ //
 	let patientRegisterForm = document.querySelector('.patient_register_form');
 	if (patientRegisterForm) {
 		new window.JustValidate('.patient_register_form', {

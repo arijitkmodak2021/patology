@@ -153,6 +153,94 @@
 		}                         
 	    
 	}
+	elseif($mode_name == 'generate_report') {
+			
+		echo '<pre>';
+		print_r($_REQUEST);
+		echo '</pre>';
+			
+		$test_values		= $_REQUEST['test_value'];
+		$reg_patient_id	= $_REQUEST['new_patient_id'];
+		$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where patient_id = '".$reg_patient_id."';");
+		$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
+		$pid 			= $patien_details_arr[0]['id'];	
+			
+		$p_tests_insert	= 'insert into patient_tests set
+							patient_id	= "'.$patien_details_arr[0]['id'].'",
+							created_by	= "'.$patien_details_arr[0]['created_by'].'",
+							doctor_name	= "'.$patien_details_arr[0]['doctor_name'].'",
+							word_no		= "'.$patien_details_arr[0]['word_name'].'",
+							create_date	= "'.date('y-m-d').'",
+							status		= 1';
+			
+		if (mysqli_query($link, $p_tests_insert)) {
+			
+			$report_id	=  mysqli_insert_id($link);
+			
+			foreach($test_values as $key => $t_val) {
+				
+				$test_main_cat_list_sql	= mysqli_query($link, "SELECT * FROM test_categories where id = '".$key."' ;");
+				$test_main_cat_list_arr	= mysqli_fetch_all($test_main_cat_list_sql, MYSQLI_ASSOC);
+				
+				$cat_grp_name			= $test_main_cat_list_arr[0]['main_category'];
+				$main_cat_id			= $test_main_cat_list_arr[0]['id'];
+				$main_cat_name			= $test_main_cat_list_arr[0]['test_category'];
+				
+				foreach($t_val as $key1 => $val) {
+				
+					if(isset($val[0]) && ($val[0] != '')) {
+						$test_list_sql		= mysqli_query($link, "SELECT * FROM `tests_type` where id = '".$key1."' order by name asc;");
+						$test_list_arr		= mysqli_fetch_all($test_list_sql, MYSQLI_ASSOC);
+						
+						$insert_query	= 'insert into patient_report set
+										report_id 	= "'.$report_id.'",
+										p_id			= "'.$patien_details_arr[0]['id'].'",
+										patient_id	= "'.$patien_details_arr[0]['patient_id'].'",
+										cat_grp_name	= "'.$cat_grp_name.'",
+										main_cat_id	= "'.$main_cat_id.'",
+										main_cat_name	= "'.$main_cat_name.'",
+										test_type_id	= "'.$key1.'",
+										test_type_name	= "'.$test_list_arr[0]['name'].'",
+										test_type_unit	= "'.$test_list_arr[0]['unit'].'",
+										normal_range	= "'.$test_list_arr[0]['normal_range'].'",
+										result_value	= "'.$val[0].'",
+										create_date	= "'.date('y-m-d').'",
+										status		= 1';
+										
+						echo $insert_query.'<br>';
+						mysqli_query($link, $insert_query);
+					}
+				}
+			}
+				
+			$_SESSION['msg']  = 'Test report generated successfully for - '.$patien_details_arr[0]['name'].'.';
+			header("Location:".$site_url."index.php?pages=print_test_reports&report_id=".$report_id);
+			exit();
+				
+		} else {
+		    $_SESSION['error_msg']  = 'Failed to store patient report detials. Please try again.';
+		    header("Location:".$site_url."index.php?pages=create_test_report&patient_id=".$pid);
+		    exit();
+		}
+	}
+	elseif($mode_name == 'search_patient'){
+		
+		$login_sql  = "SELECT * FROM patient_details WHERE patient_id='".$_REQUEST['new_patient_id']."' order by created_date desc limit 1";
+		$login_rs       = mysqli_query($link, $login_sql);
+  
+		if(mysqli_num_rows($login_rs)>0)
+		{
+			$login_row  = mysqli_fetch_array($login_rs);
+			header("Location:".$site_url."index.php?pages=create_test_report&patient_id=".$login_row['id']);
+			exit();
+		}
+		else {
+		    $_SESSION['error_msg']  = 'No Patient found with this ID ('.$_REQUEST['new_patient_id'].'). Please try again.';
+		    header("Location:".$site_url."index.php?pages=create_test_report");
+		    exit();    
+		}                         
+        
+    }
     elseif($mode_name == 'confirm_submit') {
 
         $user_id    = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : 0;

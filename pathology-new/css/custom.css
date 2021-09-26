@@ -40,7 +40,6 @@ a.selected
 }
 .text-upper {
     text-transform: uppercase;
-    word-spacing: 5px;
 }
 .text-center {
     text-align: center;
@@ -49,7 +48,7 @@ a.selected
     text-align: right;
 }
 .logo-image-outer {
-    padding-top: 20px;
+    /*padding-top: 10px;*/
 }
 .logo-image-outer image {
     width: 100%;
@@ -73,6 +72,9 @@ a.selected
 }
 .margin-bottom-30{
     margin-bottom: 30px;
+}
+.margin-bottom-5{
+	margin-bottom: 5px;
 }
 .outer-border{
     border: 2px solid black;
@@ -190,9 +192,44 @@ a.selected
 .hidden, .hide{
     display: none;
 }
-
-
-
+.font-big{
+	font-size: 30px;
+	font-weight: 700;
+}
+.font-medium{
+	font-size: 25px;
+	font-weight: 700;
+}
+.report_gen{
+	color: #30323e;
+}
+.report_gen h2 {
+	margin-bottom: 0;
+}
+.patient_det_sec{
+	border: 2px solid #30323e;
+	padding: 10px 10px;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+.border-under {
+	border-bottom: 1px dotted black;
+}
+.border-under-70{
+	width: 60%;
+	border-bottom: 1px dotted black;
+}
+.border-under-30{
+	width: 30%;
+	border-bottom: 1px dotted black;
+}
+.exm_report{
+	border: 1px solid black;
+	color: white;
+	background: #30323e;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
 .collapsible.popout {
     border: none;
     -webkit-box-shadow: none;
@@ -309,4 +346,59 @@ ul:not(.browser-default) {
 .show_tree_list::-webkit-scrollbar-thumb:hover {
   background: #979b9f; 
 }
+.patient_det{
+	display: inline-block;
+	padding-right: 30px;
+}
+.patient_det span{
+	font-size: 15px;
+}
+.edit_patient{
+	position: absolute;
+	right: 20px;
+}
+.tag_div{
+	    width: auto;
+    float: left;
+}
+.value_div{
+	margin-left: 65px;
+}
 
+.flex-container{
+	display:flex;
+	justify-content: flex-start;
+	
+}
+.flex-container .child{
+	flex:0 0 25%;
+	display: inline-block;
+}
+
+.child.last{
+	/*width:100%;*/
+	/* SOLUTION */
+	flex: 1;
+}
+.child.item{
+	
+}
+.child.item_mid{
+	flex-grow: 2; /* default 0 */
+	margin: 0 15px 0 0;
+	padding: 0 15px 0;
+	border-bottom: 1px solid #bababa;
+}
+.child.item_big{
+	flex-grow: 4; /* default 0 */
+}
+.font-small-14{
+	font-size: 14px;
+}
+.font-small-13{
+	font-size: 13px;
+}
+.border_new_under{
+	padding: 10px 0 10px;
+	border-right: 2px solid #bababa;
+}
