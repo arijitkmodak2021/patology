@@ -19,7 +19,7 @@
 	if(!empty($conditions))
 		$conditions_det		= ' WHERE '.implode(' AND ', $conditions);	
 	
-	$test_type_list_sql  		= "SELECT * FROM patient_tests ".$conditions_det." ORDER BY id asc;";
+	$test_type_list_sql  		= "SELECT a.*, b.name as patient_name FROM patient_tests a, patient_details b where a.patient_id = b.id ORDER BY id asc;";
 	$count_rs       		= mysqli_query($link, $test_type_list_sql);
 	$types_list_arr		= [];
 		
@@ -89,11 +89,8 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Test Name</th>
-												<th>Test Category</th>
-												<th>Normal Range (unit)</th>
-												<!--<th>Cost</th>-->
-												<th>Operations</th>
+												<th>Patient Name</th>
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -105,10 +102,8 @@
 													$cost 	= ($type_data['cost'] > 0) ? number_format($type_data['cost'], 2, '.', '') : 0.00;
 													echo '<tr>'.
 															'<th scope="row">'.$i.'</th>'.
-															'<td>'.$type_data['name'].'</td>'.
-															'<td>'.$type_data['category_name'].'</td>'.
-															'<td>'.$normal_range.' '.$unit.'</td>'.
-															//'<td>₹ '.$cost.'</td>'.
+															'<td><a target="_blank" href="'.$site_url.'index.php?pages=print_test_reports&report_id='.$type_data['id'].'">'.$type_data['patient_name'].'</td>'.
+															
 															'<td></td>'.
 														   '</tr>';
 														   
