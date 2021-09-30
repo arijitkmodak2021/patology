@@ -137,42 +137,41 @@
 							created_date = "'.date('y-m-d').'",
 							status = 1';
 		
-		
 		if($insert_det = mysqli_query($link, $insert_query)) {
 			
 			$patient_id =  mysqli_insert_id($link);
 			
 			$_SESSION['msg']  = 'Patient ('.$_REQUEST['patient_name'].') added successfully.';
-			header("Location:".$site_url."index.php?pages=create_test_report&patient_id=".$patient_id);
+			header("Location:".$site_url."generate-test-report/".$patient_id);
 			exit();
 		}
 		else {
 			$_SESSION['error_msg']  = 'Failed to add patient ('.$_REQUEST['patient_name'].'). Please try again.';
-			header("Location:".$site_url."index.php?pages=create_test_report");
+			header("Location:".$site_url."generate-test-report");
 			exit();    
 		}                         
-	    
 	}
 	elseif($mode_name == 'generate_report') {
 			
-		echo '<pre>';
-		print_r($_REQUEST);
-		echo '</pre>';
-			
 		$test_values		= $_REQUEST['test_value'];
-		$reg_patient_id	= $_REQUEST['new_patient_id'];
-		$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where patient_id = '".$reg_patient_id."';");
+		$reg_patient_id	= $_REQUEST['new_p_id'];
+		$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where id = '".$reg_patient_id."';");
 		$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 		$pid 			= $patien_details_arr[0]['id'];	
 			
 		$p_tests_insert	= 'insert into patient_tests set
-							patient_id	= "'.$patien_details_arr[0]['id'].'",
-							created_by	= "'.$patien_details_arr[0]['created_by'].'",
-							doctor_name	= "'.$patien_details_arr[0]['doctor_name'].'",
-							word_no		= "'.$patien_details_arr[0]['word_name'].'",
-							create_date	= "'.date('y-m-d').'",
-							status		= 1';
+							p_id					= "'.$patien_details_arr[0]['id'].'",
+							patient_id			= "'.$patien_details_arr[0]['patient_id'].'",
+							test_main_categories 	= "",
+							created_by			= "'.$patien_details_arr[0]['created_by'].'",
+							doctor_name			= "'.$patien_details_arr[0]['doctor_name'].'",
+							word_no				= "'.$patien_details_arr[0]['word_name'].'",
+							create_date			= "'.date('y-m-d').'",
+							status				= 1';
+		//echo $p_tests_insert; die;
 			
+		$cat_grp_arr		= [];
+		
 		if (mysqli_query($link, $p_tests_insert)) {
 			
 			$report_id	=  mysqli_insert_id($link);
@@ -185,6 +184,9 @@
 				$cat_grp_name			= $test_main_cat_list_arr[0]['main_category'];
 				$main_cat_id			= $test_main_cat_list_arr[0]['id'];
 				$main_cat_name			= $test_main_cat_list_arr[0]['test_category'];
+				
+				if(!in_array($cat_grp_name, $cat_grp_arr))
+					$cat_grp_arr[]		= $cat_grp_name;
 				
 				foreach($t_val as $key1 => $val) {
 				
@@ -207,19 +209,23 @@
 										create_date	= "'.date('y-m-d').'",
 										status		= 1';
 										
-						echo $insert_query.'<br>';
+						//echo $insert_query.'<br>';
 						mysqli_query($link, $insert_query);
 					}
 				}
 			}
-				
+			
+			//update the main report
+			$update_qry 	= "update patient_tests set test_main_categories = ".implode(',', $cat_grp_arr).' where id = '.$report_id.';';
+			mysqli_query($link, $update_qry);
+			
 			$_SESSION['msg']  = 'Test report generated successfully for - '.$patien_details_arr[0]['name'].'.';
-			header("Location:".$site_url."index.php?pages=print_test_reports&report_id=".$report_id);
+			header("Location:".$site_url."print-report/".$report_id);
 			exit();
 				
 		} else {
 		    $_SESSION['error_msg']  = 'Failed to store patient report detials. Please try again.';
-		    header("Location:".$site_url."index.php?pages=create_test_report&patient_id=".$pid);
+		    header("Location:".$site_url."generate-test-report/".$pid);
 		    exit();
 		}
 	}

@@ -3,25 +3,23 @@
 	
 	if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
 	{
-	    header("Location:".$site_url."index.php?pages=login");
+	    header("Location:".$site_url."login");
 	}
 	
-	
-	
 	$test_category_list_sql	= "select * from test_categories order by test_category asc";
-	$count_rs1	= mysqli_query($link, $test_category_list_sql);
-	$types_category_arr	= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
+	$count_rs1			= mysqli_query($link, $test_category_list_sql);
+	$types_category_arr		= mysqli_fetch_all($count_rs1, MYSQLI_ASSOC);
 	
 	$a	= '';
 	for ($i = 0; $i < 5; $i++) 
 		$a .= mt_rand(0,9);
 			
-	$patient_id	= 'P-'.date('Y').$a;
+	$patient_id		= 'P-'.date('Y').$a;
 	$cat_details_sql	= mysqli_query($link, "SELECT * FROM tests_type order by category_name asc;");
 	$cat_details_arr	= mysqli_fetch_all($cat_details_sql, MYSQLI_ASSOC);
 	
 	$word_details_sql	= mysqli_query($link, "SELECT * FROM word_details order by word_name asc;");
-	$word_details_arr = mysqli_fetch_all($word_details_sql, MYSQLI_ASSOC);
+	$word_details_arr 	= mysqli_fetch_all($word_details_sql, MYSQLI_ASSOC);
 	
 	$doctor_details_sql	= mysqli_query($link, "SELECT * FROM doctor_list order by name asc;");
 	$doctor_details_arr = mysqli_fetch_all($doctor_details_sql, MYSQLI_ASSOC);
@@ -31,7 +29,7 @@
 	$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 ?>
 
-<script src="js/materialize.js"></script>
+<script src="<?php echo $site_url; ?>js/materialize.js"></script>
 
 <script>
 	//document.addEventListener('DOMContentLoaded', function() {
@@ -76,8 +74,8 @@
 	<div class="container-fluid">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb mb-0 py-3">
-				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=dashboard" ?>">Dashboard</a></li>
-				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=test_reports" ?>">Test Reports</a></li>
+				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."dashboard" ?>">Dashboard</a></li>
+				<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."test-reports" ?>">Test Reports</a></li>
 				<li class="breadcrumb-item active fw-light" aria-current="page">Enter Report Details</li>
 			</ol>
 		</nav>
@@ -217,7 +215,7 @@
 										<div class="card-body p-0">
 											<!-- Item-->
 											<div class="p-3 d-flex align-items-center">
-												<img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="img/avatar-1.jpg" alt="..." width="50">
+												<img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0 hide" src="<?php echo $site_url; ?>img/avatar-1.jpg" alt="..." width="50">
 												<div class="ms-3">
 													<h3 class="fw-normal text-dark mb-0" style="padding-bottom: 10px;"><?php echo ucwords(strtolower($patien_details_arr[0]['name'])) ?></h3>
 													<div class="patient_det"> <span>Age: </span>&nbsp; <span class="text-gray-500"><?php echo ucwords(strtolower($patien_details_arr[0]['age'])) ?></span> </div>

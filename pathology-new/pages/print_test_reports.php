@@ -14,7 +14,7 @@
 	$patien_report_details_sql	= mysqli_query($link, "SELECT * FROM patient_tests where id = '".$report_id."';");
 	$patien_report_details_arr 	= mysqli_fetch_all($patien_report_details_sql, MYSQLI_ASSOC);
 	
-	$patient_id				= $patien_report_details_arr[0]['patient_id'];
+	$patient_id				= $patien_report_details_arr[0]['p_id'];
 	$patien_details_sql			= mysqli_query($link, "SELECT * FROM patient_details where id = '".$patient_id."';");
 	$patien_details_arr 		= mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 	
@@ -45,7 +45,7 @@
 				<div class="card mb-0">
 					<div class="card-body" id="print_area" style="padding: 15px;">
 						<div class="logo-image-outer no-border">
-							<center><div class="col-sm-2 no-float"><img class="logo-image" src="images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div></center>
+							<center><div class="col-sm-2 no-float"><img class="logo-image" src="<?php echo $site_url ?>images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div></center>
 						</div>
 						<div class="margin-bottom-5"></div>
 						<div class="no-border"><center><h2><b>Govt. of West Bengal</b></h2></center></div>

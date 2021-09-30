@@ -154,10 +154,11 @@
 									$i 	= 1;
 									foreach ($test_list_arr as $type_data) {
 										
+										$test_cat_arr	= '';
 										$normal_range 	= ($type_data['normal_range'] != '') 	? $type_data['normal_range'] : '- ';
 										$unit		= ($type_data['unit'] != '') 			? '('.$type_data['unit'].')' : '';
 										$cost 		= ($type_data['cost'] > 0) 			? number_format($type_data['cost'], 2, '.', '') : 0.00;
-										$test_cat_arr 	= explode(",", $test_list_arr[0]['test_main_categories']);
+										$test_cat_arr 	= explode(",", $type_data['test_main_categories']);
 										$test_cat_val  = implode("<br>", $test_cat_arr);
 										
 										echo '<tr>'.
@@ -165,7 +166,7 @@
 												'<td>
 													
 													<div class="d-flex align-items-center">
-														<img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0" src="'.$site_url.'img/avatar-1.jpg" alt="profile image" width="50">
+														<img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0 hide" src="'.$site_url.'img/avatar-1.jpg" alt="profile image" width="50">
 														<div class="ms-3">
 															<h3 class="fw-normal text-dark mb-0">'.ucwords(strtolower($test_list_arr[0]['patient_name'])).' <br> <span style="font-size: 13px;">'.$test_list_arr[0]['patient_id'].'</span></h3>
 															<div class="patient_det"> <span>Age: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($test_list_arr[0]['age'])).'</span> </div>
