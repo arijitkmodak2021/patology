@@ -16,10 +16,14 @@ RewriteRule ^test-types/([0-9]*)$ index.php?pages=test_types&page_no=$1
 RewriteRule ^test-types/([0-9]*)/([0-9]*)$ index.php?pages=test_types&page_no=$1&cat_id=$2
 RewriteRule ^test-types/([0-9]*)/([a-z|A-Z|0-9|_|\-|=|&]*)/([0-9]*)$ index.php?pages=test_types&page_no=$1&test_type_name=$2&cat_id=$3
 
-RewriteRule ^test-reports$					index.php?pages=test_reports
+
 RewriteRule ^generate-test-report$				index.php?pages=create_test_report
 RewriteRule ^generate-test-report/([0-9]*)$		index.php?pages=create_test_report&patient_id=$1
-RewriteRule ^test-reports/([0-9]*)/([a-z|A-Z|0-9|_|\-|=|&]*)/([0-9]*)$ index.php?pages=test_reports&page_no=$1&patient_name=$2&cat_id=$3
+
+RewriteRule ^test-reports$					index.php?pages=test_reports
+RewriteRule ^test-reports/([0-9]*)$			index.php?pages=test_reports&page_no=$1
+RewriteRule ^test-reports/([0-9]*)/([a-z|A-Z|0-9|_|\-|=|&]*)$ 	index.php?pages=test_reports&page_no=$1&test_cat_name=$2
+RewriteRule ^test-reports/([0-9]*)/([a-z|A-Z|0-9|_|\-|=|&]*)/([a-z|A-Z|0-9|_|\-|=|&]*)$ index.php?pages=test_reports&page_no=$1&patient_name=$2&test_cat_name=$3
 
 
 RewriteRule ^print-report$					index.php?pages=print_test_reports

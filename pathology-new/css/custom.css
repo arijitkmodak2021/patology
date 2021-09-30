@@ -516,4 +516,13 @@ ul:not(.browser-default) {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-
+.opt_button span {
+	padding: 5px;
+     font-size: 20px;
+}
+.pagi_info_div {
+	padding-top: 10px;
+    padding-bottom: 5px;
+    text-align: right;
+    padding-right: 25px;
+}

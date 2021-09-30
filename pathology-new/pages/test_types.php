@@ -1,10 +1,10 @@
 <?php
 	include("includes/config.php");
 
-	//if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
-	//{
-	//    header("Location:".$site_url."index.php?pages=login");
-	//}
+	if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
+	{
+	    header("Location:".$site_url."login");
+	}
 	
 	$cat_search				= (isset($_REQUEST['cat_id'])) ? $_REQUEST['cat_id'] : '';
 	$name_search				= (isset($_REQUEST['test_type_name'])) ? $_REQUEST['test_type_name'] : '';
@@ -188,9 +188,12 @@
 							</table>
 						</div>
 					</div>
+					<div class="pagi_info_div float-right">
+						<span> Showing <?php echo ($type_count > $limit) ? (($offset+1).' - '.($offset+count($types_list_arr)).' of '.$type_count) : 'All' ?> records. </span>
+					</div>
 					<div class="pagination_div">
 						<?php
-							if($total_page > 0) {
+							if($total_page > 1) {
 								echo '<ul class="pagination">';
 								for ($i = 1; $i <= $total_page; $i++){
 									$act 	= ($i == $page_no) ? 'active' : '';
