@@ -3,7 +3,7 @@
 
 	if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
 	{
-	    header("Location:".$site_url."index.php?pages=login");
+	    header("Location:".$site_url."login");
 	}
 	
 	$test_category_list_sql  	= "select * from test_categories order by main_category asc, test_category asc";
@@ -44,8 +44,8 @@
 	<div class="container-fluid">
 		<nav aria-label="breadcrumb">
 		  <ol class="breadcrumb mb-0 py-3">
-			<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=dashboard" ?>">Dashboard</a></li>
-			<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."index.php?pages=test_types" ?>">Test Types</a></li>
+			<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."dashboard" ?>">Dashboard</a></li>
+			<li class="breadcrumb-item"><a class="fw-light" href="<?php echo $site_url."test-types" ?>">Test Types</a></li>
 			<li class="breadcrumb-item active fw-light" aria-current="page">Create</li>
 		  </ol>
 		</nav>
@@ -127,7 +127,7 @@
 							<div class="row">
 								<div class="col-sm-9 ms-auto">
 									<input class="btn btn-primary" type="submit" value="Submit">
-									<a href="<?php echo $site_url."index.php?pages=test_types" ?>" id="create_button" style="line-height: 1.5; margin-left: 20px;" class="selected">Back</a>
+									<a href="<?php echo $site_url."test-types" ?>" id="create_button" style="line-height: 1.5; margin-left: 20px;" class="selected">Back</a>
 								</div>
 							</div>
 						</form>

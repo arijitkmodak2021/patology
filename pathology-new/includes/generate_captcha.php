@@ -145,5 +145,10 @@ class generate_captchaClass
 		$y = intval(($yi + $yr) / 2);
 		return array($x, $y);	
 	}
+	
+	
+	
+	
+	
 }
 ?>

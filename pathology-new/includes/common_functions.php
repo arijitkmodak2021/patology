@@ -73,11 +73,11 @@
             }
             
             //print_r($_COOKIE);die;
-            header("Location:".$site_url."index.php?pages=dashboard");
+            header("Location:".$site_url."dashboard");
         }
         else {
             $_SESSION['error_msg']  = 'Invalid username or password. Please try again.';
-            header("Location:".$site_url."index.php?pages=login");
+            header("Location:".$site_url."login");
         }
     }
     elseif($mode_name == 'logout') {
@@ -87,7 +87,7 @@
         unset($_SESSION['password']);
         unset($_SESSION['is_logged_in']);
 
-        header("Location:".$site_url."index.php?pages=login");
+        header("Location:".$site_url."login");
 
     }
     elseif($mode_name == 'test_type_insert'){
@@ -105,12 +105,12 @@
         
         if(mysqli_query($link, $insert_query)) {
             $_SESSION['msg']  = 'Test type ('.$_REQUEST['name'].') added successfully.';
-            header("Location:".$site_url."index.php?pages=test_types");
+            header("Location:".$site_url."test-types");
             exit();
         }
         else {
             $_SESSION['error_msg']  = 'Failed to add test type ('.$_REQUEST['name'].'). Please try again.';
-            header("Location:".$site_url."index.php?pages=test_types");
+            header("Location:".$site_url."test-types");
             exit();    
         }                         
         

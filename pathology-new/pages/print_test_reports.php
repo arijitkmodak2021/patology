@@ -3,11 +3,11 @@
 	
 	if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
 	{
-	    header("Location:".$site_url."index.php?pages=login");
+	    header("Location:".$site_url."login");
 	}
 	elseif (!isset($_REQUEST['report_id']) or ($_REQUEST['report_id'] == ''))
 	{
-	    header("Location:".$site_url."index.php?pages=test_reports");
+	    header("Location:".$site_url."test-reports");
 	}
 	
 	$report_id				= (isset($_REQUEST['report_id']) && !empty($_REQUEST['report_id'])) ? $_REQUEST['report_id'] : 0;

@@ -3,7 +3,7 @@
 
     if (!isset($_SESSION['is_logged_in']) or ($_SESSION['is_logged_in'] == ''))
     {
-        header("Location:".$site_url."index.php?pages=login");
+        header("Location:".$site_url."login");
     }
 	
 ?>

@@ -44,7 +44,12 @@ function get_pages($pagename)
 	
 	$main_page = (!empty($main_page)) ? $main_page : 'login';
 
-	require_once('pages/'.$main_page.'.php');
+	$file_path	= PHYSICAL_PATH.'pages/'.$main_page.'.php';
+	
+	if (file_exists($file_path)) 
+		require_once('pages/'.$main_page.'.php');
+	else 
+	   require_once('pages/error.php');
 }
 
 /************************* Thumbnail Function - Starts *************************/

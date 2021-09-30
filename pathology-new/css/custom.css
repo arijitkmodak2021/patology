@@ -402,3 +402,118 @@ ul:not(.browser-default) {
 	padding: 10px 0 10px;
 	border-right: 2px solid #bababa;
 }
+.profile_drop a {
+	padding: 0;
+}
+.profile_drop a img{
+	width: 35px;
+	border-radius: 50%;
+}
+.text-bold{
+	font-weight: bold;
+}
+.padding-top-30{
+	padding-top: 22px;
+}
+.profile_menu{
+	padding: 0 !important;
+	border-radius: 10px;
+	margin-top: 6px !important;
+	min-width: auto !important;
+}
+.profile_menu li {
+	border-bottom: 1px solid #bababa;
+}
+.profile_menu li a{
+	padding: 15px 20px;
+	padding-bottom: 10px;
+}
+.profile_menu li:last-child{
+	border-bottom: none;
+}
+
+.profile_menu li:first-child .dropdown-item:hover{
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+.profile_menu li:last-child .dropdown-item:hover{
+	border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.big_text{
+	    text-align: center;
+    font-size: 250px;
+    font-weight: 100;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.page_error_msg{
+	position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 48.5%;
+    margin-bottom: 0;
+}
+.page_error_msg span{
+	    padding: 12px 50px;
+    background: white;
+}
+.error_go_btn {
+	text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 80%;
+}
+.error_btn{
+	    padding: 10px 30px;
+}
+.middle_error_message{
+	position: relative;
+	margin-bottom: 150px;
+}
+.pagination_div {
+	padding: 0px 20px 25px;
+    text-align: center;
+}
+.pagination_div ul {
+	    display: inline-block;
+    margin: 0;
+    border: 1px solid #bababa;
+    border-radius: 10px;
+}
+.pagination_div ul li {
+	display: inline-block;
+    
+    border-right: 1px solid #bababa;
+}
+.pagination_div ul li a{
+	padding: 10px 20px;
+}
+.pagination_div ul li.active {
+	color: #fff;
+    background-color: #6155be;
+    font-weight: bold;
+}
+.pagination_div ul li:last-child{
+	border-right: 0;
+}
+
+.pagination_div ul li.active {
+	color: #fff;
+    background-color: #6155be;
+    font-weight: bold;
+}
+.pagination_div ul li.active a, .pagination_div ul li.active a:hover{
+	color: #fff;
+}
+.pagination_div ul li:first-child.active {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.pagination_div ul li:last-child.active {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
