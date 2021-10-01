@@ -526,3 +526,12 @@ ul:not(.browser-default) {
     text-align: right;
     padding-right: 25px;
 }
+.p_clear_btn {
+	position: absolute;
+	right: -10px;
+	font-size: 30px;
+	color: #adb5bd;
+	top: -10px;
+	background: white;
+	border-radius: 50%;
+}

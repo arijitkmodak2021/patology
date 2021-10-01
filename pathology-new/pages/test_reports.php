@@ -7,8 +7,10 @@
 	}
 	
 	$patient_name				= (isset($_REQUEST['patient_name'])) ? $_REQUEST['patient_name'] : '';
+	$patient_name				= ucwords(str_replace('p-', '', $patient_name));
+	$patient_name				= ucwords(str_replace('-', ' ', $patient_name));
 	$cat_search				= (isset($_REQUEST['test_cat_name'])) ? $_REQUEST['test_cat_name'] : '';
-	$cat_search				= ucwords(strtolower(str_replace('-', ' ', $cat_search)));
+	$cat_search				= ucwords(str_replace('-', ' ', $cat_search));
 	$page_no					= (isset($_REQUEST['page_no'])) ? $_REQUEST['page_no'] : 1;
 	$conditions				= [];
 	$conditions_det			= '';
@@ -58,11 +60,11 @@
 	
 	function generate_submit_form() {
 		
-		var text_val 		= $('#patient_name').val();
-		var text_val_uri	= (text_val != '') ? text_val : '';
+		var text_val 		= $('#patient_name').val().trim();
+		var text_val_uri	= text_val.replace(/[`~!@#$%^&*()_|+\-=?;:'", .<>\{\}\[\]\\\/]/gi, '-').toLowerCase();
 		var is_paginate	= $('#is_paginate').val();
-		var cat_name 		= $('#test_cat_name').val();
-		var cat_name_uri	= (cat_name != '') ? cat_name : '';
+		var cat_name 		= $('#test_cat_name').val().trim();
+		var cat_name_uri	= cat_name.replace(/[`~!@#$%^&*()_|+\-=?;:'", .<>\{\}\[\]\\\/]/gi, '-').toLowerCase();
 		var page_no 		= (is_paginate == 1) ? $('#page_no').val() : 1;
 		var url_val		= '';
 		url_val			= '<?php echo $site_url; ?>test-reports/'+page_no;
@@ -72,7 +74,7 @@
 			
 		url_val		= url_val+'/'+cat_name_uri;	
 		
-		alert(url_val);
+		//alert(url_val);
 		window.location.href = url_val;
 		return false
 	}
@@ -112,7 +114,7 @@
 								
 								<div class="col-lg-5">
 									<div class="input-group">
-										<input name="patient_name" value="<?php echo (isset($_REQUEST['patient_name'])) ? $_REQUEST['patient_name'] : ''; ?>" id="patient_name" class="form-control" type="text" placeholder="Patient ID / Name">
+										<input name="patient_name" value="<?php echo $patient_name; ?>" id="patient_name" class="form-control" type="text" placeholder="Patient ID / Name">
 									</div>
 								</div>
 								<div class="col-lg-5">
@@ -121,10 +123,9 @@
 										<option value="">Select Category</option>
 										<?php
 											foreach ($types_category_arr as $category_det) {
-												$opt_val		= str_replace(' ', '-', $category_det['main_category']);
-												$selected 	= (isset($_REQUEST['test_cat_name']) && ($_REQUEST['test_cat_name'] == $opt_val)) ? 'selected' : '';
 												
-												echo '<option value="'.$opt_val.'" '.$selected.'>'.$category_det['main_category'].'</option>';
+												$selected 	= ($cat_search == $category_det['main_category']) ? 'selected' : '';
+												echo '<option value="'.$category_det['main_category'].'" '.$selected.'>'.$category_det['main_category'].'</option>';
 											}
 										?>
 									</select>
@@ -168,23 +169,23 @@
 													<div class="d-flex align-items-center">
 														<img class="img-fluid rounded-circle p-1 border border-faintGreen flex-shrink-0 hide" src="'.$site_url.'img/avatar-1.jpg" alt="profile image" width="50">
 														<div class="ms-3">
-															<h3 class="fw-normal text-dark mb-0">'.ucwords(strtolower($test_list_arr[0]['patient_name'])).' <br> <span style="font-size: 13px;">'.$test_list_arr[0]['patient_id'].'</span></h3>
-															<div class="patient_det"> <span>Age: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($test_list_arr[0]['age'])).'</span> </div>
-															<div class="patient_det"><span>Sex: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($test_list_arr[0]['gender'])).'</span></div>
-															<div class="patient_det"><span>Word No: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($test_list_arr[0]['word_no'])).'</span></div>
+															<h3 class="fw-normal text-dark mb-0">'.ucwords(strtolower($type_data['patient_name'])).' <br> <span style="font-size: 13px;">'.$test_list_arr[0]['patient_id'].'</span></h3>
+															<div class="patient_det"> <span>Age: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($type_data['age'])).'</span> </div>
+															<div class="patient_det"><span>Sex: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($type_data['gender'])).'</span></div>
+															<div class="patient_det"><span>Word No: </span>&nbsp; <span class="text-gray-500">'.ucwords(strtolower($type_data['word_no'])).'</span></div>
 															<br>
-															<div class="patient_det"><span>Reg No: </span>&nbsp;<span class="text-gray-500">'.ucwords(strtolower($test_list_arr[0]['registration_no'])).'</span></div>
-															<div class="patient_det"><span>Under: </span>&nbsp;<span class="text-gray-500">'.ucwords(strtolower($test_list_arr[0]['doctor_name'])).'</span></div>
+															<div class="patient_det"><span>Reg No: </span>&nbsp;<span class="text-gray-500">'.ucwords(strtolower($type_data['registration_no'])).'</span></div>
+															<div class="patient_det"><span>Under: </span>&nbsp;<span class="text-gray-500">'.ucwords(strtolower($type_data['doctor_name'])).'</span></div>
 														</div>
 													</div>
 												</td>';
 											echo	'<td style="text-align: center;">'.ucwords(strtolower($test_list_arr[0]['created_by'])).'</td>';
 											echo	'<td style="text-align: center;">'.ucwords(strtolower($test_cat_val)).'</td>';
-											echo	'<td style="text-align: center;">'.date("F j, Y, g:i a", strtotime($test_list_arr[0]['create_date'])).'</td>';
+											echo	'<td style="text-align: center;">'.date("F j, Y, g:i a", strtotime($type_data['create_date'])).'</td>';
 											echo	'<td style="text-align: center;">
-													<a class="opt_button" href="'.$site_url.'view-test-details/'.$test_list_arr[0]['report_id'].'"><span><i class="far fa-eye"></i></span></a>
-													<a class="opt_button" href="'.$site_url.'edit-test-details/'.$test_list_arr[0]['report_id'].'"><span><i class="far fa-edit"></i></span></a>
-													<a class="opt_button" href="'.$site_url.'print-report/'.$test_list_arr[0]['report_id'].'"><span><i class="far fa-file-pdf"></i></span></a>
+													<a class="opt_button" href="'.$site_url.'view-test-details/'.$type_data['report_id'].'"><span><i class="far fa-eye"></i></span></a>
+													<a class="opt_button" href="'.$site_url.'edit-test-details/'.$type_data['report_id'].'"><span><i class="far fa-edit"></i></span></a>
+													<a class="opt_button" href="'.$site_url.'print-report/'.$type_data['report_id'].'"><span><i class="far fa-file-pdf"></i></span></a>
 												</td>';
 										echo '</tr>';
 											

@@ -80,41 +80,39 @@
             header("Location:".$site_url."login");
         }
     }
-    elseif($mode_name == 'logout') {
-        
-        unset($_SESSION['userId']);
-        unset($_SESSION['username']);
-        unset($_SESSION['password']);
-        unset($_SESSION['is_logged_in']);
-
-        header("Location:".$site_url."login");
-
-    }
-    elseif($mode_name == 'test_type_insert'){
-        $cat_id         = $_REQUEST['cat_id'];
-        $cat_details    = mysqli_fetch_array(mysqli_query($link, "SELECT test_category FROM test_categories WHERE id = '".$cat_id."';"));
-        
-        $insert_query   =   'insert into tests_type set 
-                                    category_id = "'.addslashes(stripslashes($_REQUEST['cat_id'])).'", 
-                                    name = "'.addslashes(stripslashes($_REQUEST['name'])).'", 
-                                    category_name = "'.$cat_details['test_category'].'", 
-                                    unit = "'.addslashes(stripslashes($_REQUEST['unit'])).'", 
-                                    cost = "'.addslashes(stripslashes($_REQUEST['cost'])).'", 
-                                    normal_range = "'.addslashes(stripslashes($_REQUEST['normal_range'])).'", 
-                                    status = 1';
-        
-        if(mysqli_query($link, $insert_query)) {
-            $_SESSION['msg']  = 'Test type ('.$_REQUEST['name'].') added successfully.';
-            header("Location:".$site_url."test-types");
-            exit();
-        }
-        else {
-            $_SESSION['error_msg']  = 'Failed to add test type ('.$_REQUEST['name'].'). Please try again.';
-            header("Location:".$site_url."test-types");
-            exit();    
-        }                         
-        
-    }
+	elseif($mode_name == 'logout') {
+	    
+		unset($_SESSION['userId']);
+		unset($_SESSION['username']);
+		unset($_SESSION['password']);
+		unset($_SESSION['is_logged_in']);
+			
+		header("Location:".$site_url."login");
+	}
+	elseif($mode_name == 'test_type_insert'){
+		$cat_id         = $_REQUEST['cat_id'];
+		$cat_details    = mysqli_fetch_array(mysqli_query($link, "SELECT test_category FROM test_categories WHERE id = '".$cat_id."';"));
+		
+		$insert_query   =   'insert into tests_type set 
+							   category_id = "'.addslashes(stripslashes($_REQUEST['cat_id'])).'", 
+							   name = "'.addslashes(stripslashes($_REQUEST['name'])).'", 
+							   category_name = "'.$cat_details['test_category'].'", 
+							   unit = "'.addslashes(stripslashes($_REQUEST['unit'])).'", 
+							   cost = "'.addslashes(stripslashes($_REQUEST['cost'])).'", 
+							   normal_range = "'.addslashes(stripslashes($_REQUEST['normal_range'])).'", 
+							   status = 1';
+		
+		if(mysqli_query($link, $insert_query)) {
+		    $_SESSION['msg']  = 'Test type ('.$_REQUEST['name'].') added successfully.';
+		    header("Location:".$site_url."test-types");
+		    exit();
+		}
+		else {
+		    $_SESSION['error_msg']  = 'Failed to add test type ('.$_REQUEST['name'].'). Please try again.';
+		    header("Location:".$site_url."test-types");
+		    exit();    
+		}                         
+	}
 	elseif($mode_name == 'patient_register'){
 		
 		$word_no		= $_REQUEST['word_no'];
@@ -169,8 +167,8 @@
 							create_date			= "'.date('y-m-d').'",
 							status				= 1';
 		//echo $p_tests_insert; die;
-			
 		$cat_grp_arr		= [];
+		$i				= 0;
 		
 		if (mysqli_query($link, $p_tests_insert)) {
 			
@@ -185,12 +183,13 @@
 				$main_cat_id			= $test_main_cat_list_arr[0]['id'];
 				$main_cat_name			= $test_main_cat_list_arr[0]['test_category'];
 				
-				if(!in_array($cat_grp_name, $cat_grp_arr))
-					$cat_grp_arr[]		= $cat_grp_name;
-				
 				foreach($t_val as $key1 => $val) {
-				
+						
 					if(isset($val[0]) && ($val[0] != '')) {
+						
+						if(!in_array($cat_grp_name, $cat_grp_arr))
+							$cat_grp_arr[]		= $cat_grp_name;
+						
 						$test_list_sql		= mysqli_query($link, "SELECT * FROM `tests_type` where id = '".$key1."' order by name asc;");
 						$test_list_arr		= mysqli_fetch_all($test_list_sql, MYSQLI_ASSOC);
 						
@@ -215,10 +214,13 @@
 				}
 			}
 			
+			//print_r($cat_grp_arr);
 			//update the main report
-			$update_qry 	= "update patient_tests set test_main_categories = ".implode(',', $cat_grp_arr).' where id = '.$report_id.';';
+			$update_qry 	= "update patient_tests set test_main_categories = '".implode(',', $cat_grp_arr)."' where id = '".$report_id."';";
+			//echo $update_qry;
 			mysqli_query($link, $update_qry);
 			
+			//die;
 			$_SESSION['msg']  = 'Test report generated successfully for - '.$patien_details_arr[0]['name'].'.';
 			header("Location:".$site_url."print-report/".$report_id);
 			exit();
@@ -229,24 +231,23 @@
 		    exit();
 		}
 	}
-	elseif($mode_name == 'search_patient'){
+	elseif($mode_name == 'search_patient') {
 		
-		$login_sql  = "SELECT * FROM patient_details WHERE patient_id='".$_REQUEST['new_patient_id']."' order by created_date desc limit 1";
-		$login_rs       = mysqli_query($link, $login_sql);
-  
-		if(mysqli_num_rows($login_rs)>0)
-		{
-			$login_row  = mysqli_fetch_array($login_rs);
-			header("Location:".$site_url."index.php?pages=create_test_report&patient_id=".$login_row['id']);
-			exit();
-		}
+		$return_arr['patient_details']	= [];
+		$return_arr['status']			= 1;
+		$return_arr['message']			= 'Success';
+		
+		$patient_sql       = mysqli_query($link, "SELECT * FROM patient_details WHERE id='".$_REQUEST['p_id']."';");
+		
+		if(mysqli_num_rows($patient_sql)>0)
+			$return_arr['patient_details']  	= mysqli_fetch_array($patient_sql, MYSQLI_ASSOC);
 		else {
-		    $_SESSION['error_msg']  = 'No Patient found with this ID ('.$_REQUEST['new_patient_id'].'). Please try again.';
-		    header("Location:".$site_url."index.php?pages=create_test_report");
-		    exit();    
-		}                         
-        
-    }
+			$return_arr['status']			= 0;
+			$return_arr['message']			= 'Failed to get patient details';
+		}
+		
+		echo json_encode($return_arr);
+	}
     elseif($mode_name == 'confirm_submit') {
 
         $user_id    = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : 0;

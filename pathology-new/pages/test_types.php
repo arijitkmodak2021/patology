@@ -8,6 +8,7 @@
 	
 	$cat_search				= (isset($_REQUEST['cat_id'])) ? $_REQUEST['cat_id'] : '';
 	$name_search				= (isset($_REQUEST['test_type_name'])) ? $_REQUEST['test_type_name'] : '';
+	$name_search				= ucwords(str_replace('-', ' ', $name_search));
 	$page_no					= (isset($_REQUEST['page_no'])) ? $_REQUEST['page_no'] : 1;
 	$conditions				= [];
 	$conditions_det			= '';
@@ -56,8 +57,9 @@
 	
 	function generate_submit_form() {
 		
-		var text_val 		= $('#test_type_name').val();
-		var text_val_uri	= (text_val != '') ? encodeURI(text_val) : 'All';
+		var text_val 		= $('#test_type_name').val().trim();
+		var text_val_uri	= text_val.replace(/[`~!@#$%^&*()_|+\-=?;:'", .<>\{\}\[\]\\\/]/gi, '-').toLowerCase();
+		//var text_val_uri	= (text_val != '') ? encodeURI(text_val) : 'All';
 		var is_paginate	= $('#is_paginate').val();
 		var cat_id 		= $('#cat_id').val();
 		var page_no 		= (is_paginate == 1) ? $('#page_no').val() : 1;
@@ -110,7 +112,7 @@
 								
 								<div class="col-lg-5">
 									<div class="input-group">
-										<input name="test_type_name" value="<?php echo (isset($_REQUEST['test_type_name'])) ? $_REQUEST['test_type_name'] : ''; ?>" id="test_type_name" class="form-control" type="text" placeholder="Test Type">
+										<input name="test_type_name" value="<?php echo $name_search; ?>" id="test_type_name" class="form-control" type="text" placeholder="Test Name">
 									</div>
 								</div>
 								<div class="col-lg-5">
