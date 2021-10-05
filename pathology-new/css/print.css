@@ -37,6 +37,12 @@
    #print_area{
 	padding: 0 !important;
    }
+   .tables .col-lg-12{
+	padding: 0 20px;
+   }
+   .tables .row{
+	margin: 0;
+   }
     .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5,.col-sm-6, .col-sm-7, .col-sm-9, .col-sm-10 {
             float: left;
 		  

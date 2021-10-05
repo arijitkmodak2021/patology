@@ -382,13 +382,22 @@ ul:not(.browser-default) {
 	flex: 1;
 }
 .child.item{
-	
+	text-align: center;
+	font-weight: bold;
 }
+.child.item:first-child{
+	text-align: right;
+}
+.child.item:last-child{
+	text-align: left;
+}
+
+
+
 .child.item_mid{
 	flex-grow: 2; /* default 0 */
-	margin: 0 15px 0 0;
-	padding: 0 15px 0;
-	border-bottom: 1px solid #bababa;
+	font-weight: normal;
+	border-bottom: 2px dotted #30323e;
 }
 .child.item_big{
 	flex-grow: 4; /* default 0 */
@@ -557,4 +566,7 @@ ul:not(.browser-default) {
 	font-size: 15px;
 	font-weight: 400;
 	padding-left: 10px;
+}
+.each_print_div{
+	    padding: 10px 0 10px;
 }

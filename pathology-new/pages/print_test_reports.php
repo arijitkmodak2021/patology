@@ -14,12 +14,16 @@
 	$patien_report_details_sql	= mysqli_query($link, "SELECT * FROM patient_tests where id = '".$report_id."';");
 	$patien_report_details_arr 	= mysqli_fetch_all($patien_report_details_sql, MYSQLI_ASSOC);
 	
+	$test_main_categories		= explode(',',$patien_report_details_arr[0]['test_main_categories']);
+	
 	$patient_id				= $patien_report_details_arr[0]['p_id'];
 	$patien_details_sql			= mysqli_query($link, "SELECT * FROM patient_details where id = '".$patient_id."';");
 	$patien_details_arr 		= mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 	
 	$report_values_sql			= mysqli_query($link, "select * from patient_report where report_id = '".$report_id." order by cat_grp_name asc, main_cat_name asc, test_type_name asc';");
 	$report_values_arr			= mysqli_fetch_all($report_values_sql, MYSQLI_ASSOC);
+	
+	
 	
 ?>
 <link rel="stylesheet" href="<?php echo $site_url ?>css/print.css">
@@ -38,12 +42,12 @@
 
 
 <!-- Forms Section-->
-<section class="tables" style="padding-top: 30px;">   
+<section class="tables" id="print_area" style="padding-top: 30px;">   
 	<div class="container-fluid report_gen">
 		<div class="row gy-4">
 			<div class="col-lg-12">
 				<div class=" mb-0">
-					<div class="" id="print_area" style="padding: 15px;">
+					<div class=""  style="padding: 15px;">
 						<div class="logo-image-outer no-border">
 							<center><div class="col-sm-2 no-float"><img class="logo-image" src="<?php echo $site_url ?>images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div></center>
 						</div>
@@ -88,10 +92,21 @@
 							</div>
 							<div class="row patient_rpt_sec" style="margin: 0;">
 								<?php
+									$sec_type_1	= [];
+									$sec_type_2	= [];
+									$sec_type_3	= [];
+									
 									$i = 0; $j = 1;
-									echo '<div class="col-sm-6">';
-										echo '<p style="border-right: 2px solid #bababa; margin: 0; height: 10px;">&nbsp;</p>
-											<p style="border-right: 2px solid #bababa; margin: 0; height: 10px;">&nbsp;</p>';
+									
+									$do_split 	= (count($test_main_categories) > 3) ? 1 : 0;
+									$in_style 	= ($do_split == 1) ? '': 'float: none; margin: 0 auto; padding : 0';
+									$in_class 	= ($do_split == 1) ? 'col-sm-6': 'col-sm-9';
+									$border_right 	= ($do_split == 1) ? 'border-right: 2px solid #bababa; margin: 0; height: 10px;': '';
+									$elb_class	= ($do_split == 1) ? 'border_new_under': '';
+									
+									echo '<div class="'.$in_class.'" style="'.$in_style.'">';
+										echo '<p style="'.$border_right.'">&nbsp;</p>
+											<p style="'.$border_right.'">&nbsp;</p>';
 												
 										foreach($report_values_arr as $report_value) {
 												
@@ -103,7 +118,7 @@
 											$unit		= ($report_value['unit'] != '') ? '('.ucwords(strtolower($report_value['unit'])).')' : '';
 												
 											if($i == 0)
-												echo '<p style="border-right: 2px solid #bababa; margin: 0;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
+												echo '<p style="'.$border_right.'"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
 											else{
 												$prev_cat_name	= $report_values_arr[$i - 1]['main_cat_name'];
 												if($main_cat_name != $prev_cat_name) {
@@ -111,18 +126,18 @@
 													if(($j % 3) == 0)
 														echo '</div>
 																<div class="col-sm-6">
-																	<p style="border-right: 2px solid #bababa; margin: 0; height: 10px;">&nbsp;</p>
-																	<p style="border-right: 2px solid #bababa; margin: 0; height: 10px;">&nbsp;</p>';
+																	<p style="'.$border_right.'">&nbsp;</p>
+																	<p style="'.$border_right.'">&nbsp;</p>';
 													
-													echo '<p style="border-right: 2px solid #bababa; margin: 0; height: 10px;">&nbsp;</p>
-														<p style="border-right: 2px solid #bababa; margin: 0; height: 10px;">&nbsp;</p>
-														<p style="border-right: 2px solid #bababa; margin: 0;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
+													echo '<p style="'.$border_right.'">&nbsp;</p>
+														<p style="'.$border_right.'">&nbsp;</p>
+														<p style="'.$border_right.'"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
 												}
 											}
 												
-											echo '<div class="flex-container border_new_under">
+											echo '<div class="flex-container each_print_div '.$elb_class.'">
 													<div class="child item font-small-14">'.ucwords(strtolower($test_name)).' :</div>
-													<div class="child item_mid ">'.ucwords(strtolower($report_value['result_value'])).'</div>
+													<div class="child item item_mid ">'.ucwords(strtolower($report_value['result_value'])).'</div>
 													<div class="child item font-small-13">'.$normal_range.' '.$unit.'</div>
 												</div>';
 												
