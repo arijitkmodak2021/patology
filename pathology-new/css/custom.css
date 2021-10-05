@@ -213,7 +213,7 @@ a.selected
 	margin-top: 10px;
 }
 .border-under {
-	border-bottom: 1px dotted black;
+	border-bottom: 2px dotted black;
 }
 .border-under-70{
 	width: 60%;
@@ -363,6 +363,7 @@ ul:not(.browser-default) {
 }
 .value_div{
 	margin-left: 65px;
+	    padding-left: 10px;
 }
 
 .flex-container{
@@ -534,4 +535,26 @@ ul:not(.browser-default) {
 	top: -10px;
 	background: white;
 	border-radius: 50%;
+}
+.error_right_sec_details{
+	float: right;
+	align-self: flex-end;
+	align-items: flex-end;
+	position: absolute;
+	right: 20px;
+     font-size: 13px;
+}
+.error_right_sec_details i {
+	font-size: 15px;
+	width: 0;
+	margin-right: 22px;
+	color: #ffc36d;
+}
+.collapsible-header{
+	position: relative;
+}
+.cat_sec_det{
+	font-size: 15px;
+	font-weight: 400;
+	padding-left: 10px;
 }

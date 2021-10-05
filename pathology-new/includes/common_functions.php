@@ -152,7 +152,7 @@
 	elseif($mode_name == 'generate_report') {
 			
 		$test_values		= $_REQUEST['test_value'];
-		$reg_patient_id	= $_REQUEST['new_p_id'];
+		$reg_patient_id	= $_REQUEST['final_patient_id'];
 		$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where id = '".$reg_patient_id."';");
 		$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 		$pid 			= $patien_details_arr[0]['id'];	

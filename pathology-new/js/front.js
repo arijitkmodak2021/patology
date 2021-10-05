@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				mobile_no: 'Please enter mobile no.',
 				gender_val: 'Please select gender.',
 				word_no_val: 'Please select word no.',
-				docotor_name: 'Please select doctor.',
+				docotor_name: 'Please select a doctor.',
 				
 			},
 			invalidFormCallback: function () {

@@ -11,6 +11,9 @@
         padding: 0 !important;
         margin: 0 !important;
     }
+    .page{
+	background: none;
+    }
     .container {
         /* width: 816px;
         height: 1344; */
@@ -22,11 +25,21 @@
     .margin-bottom-30 {
         margin-bottom: 10px !important;
     }
-    .header_text, h2 {
-        font-size: 25px !important;
-    }
+   .header, .side-navbar {
+	display: none;
+   }
+   section.tables{
+	padding: 0 !important;
+   }
+   .report_gen{
+	padding: 0;
+   }
+   #print_area{
+	padding: 0 !important;
+   }
     .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5,.col-sm-6, .col-sm-7, .col-sm-9, .col-sm-10 {
             float: left;
+		  
     }
     .col-sm-10 {
         width: 83.33333333%;
@@ -97,5 +110,65 @@
     }
     .logo-image-outer {
         padding-top: 15px !important;
+    }
+    
+    .font-big {
+		font-size: 23px;
+		font-weight: 700;
+	}
+    .font-medium{
+	font-size: 20px;
+    }
+    
+    .p_m_40{
+	margin-left: 40px;
+    }
+    .p_m_45{
+	margin-left: 45px;
+    }
+    .p_m_55{
+	margin-left: 55px;
+    }
+    .p_m_68{
+	margin-left: 68px;
+    }
+    .p_m_60{
+	margin-left: 60px;
+    }
+    
+    .tag_div{
+	display: inline-block;
+	font-weight: 700;
+	padding-top: 7px;
+    }
+    .value_div {
+	    display: inline-block;
+	margin-left: 0;
+	padding-left: 0;
+	 width: 60%;
+	 text-align: center;
+    }
+    
+    .p_w_85{
+	width: 85%;
+    }
+    .p_w_75{
+	width: 73%;
+    }
+    .p_w_65{
+	width: 62%;
+    }
+     .p_w_80{
+	width: 80%;
+    }
+    .no-right-padding{
+	padding-right: 0;
+    }
+    .no-left-padding{
+	padding-left: 0;
+    }
+    .no-padding{
+	padding-right: 0;
+	padding-left: 0;
     }
 }

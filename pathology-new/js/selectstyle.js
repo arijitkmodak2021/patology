@@ -94,9 +94,12 @@
 			var txt = $(this).data('title'),
 				vl = $(this).attr('value'),
 				sid = $(this).parent('ul').attr('sid');
+				
 			$(this).parents('ul#select_style_ul').hide();
 			$(this).parents('ul#select_style_ul').parent('div').find('div#select_style_text').html(txt);
 			$('#'+sid).children('option').filter(function(){ return $(this).val() == vl }).prop('selected', true).change();
+			$('#p_error_message').remove();
+			$('#select_style').removeAttr('style');
 		});
 		
 		$("body").delegate(".p_clear_btn", "click", function(e) {
