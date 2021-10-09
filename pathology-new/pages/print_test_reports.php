@@ -13,7 +13,7 @@
 	$report_id				= (isset($_REQUEST['report_id']) && !empty($_REQUEST['report_id'])) ? $_REQUEST['report_id'] : 0;
 	$patien_report_details_sql	= mysqli_query($link, "SELECT * FROM patient_tests where id = '".$report_id."';");
 	$patien_report_details_arr 	= mysqli_fetch_all($patien_report_details_sql, MYSQLI_ASSOC);
-	
+	//echo '<pre>';print_r($patien_report_details_arr); echo '</pre>';
 	$test_main_categories		= explode(',',$patien_report_details_arr[0]['test_main_categories']);
 	
 	$patient_id				= $patien_report_details_arr[0]['p_id'];
@@ -22,32 +22,18 @@
 	
 	$report_values_sql			= mysqli_query($link, "select * from patient_report where report_id = '".$report_id." order by cat_grp_name asc, main_cat_name asc, test_type_name asc';");
 	$report_values_arr			= mysqli_fetch_all($report_values_sql, MYSQLI_ASSOC);
-	
-	
-	
+		
+	$report_cat_values_sql		= mysqli_query($link, "select main_cat_name from patient_report where report_id = '".$report_id."' group by main_cat_name order by main_cat_name asc;");
+	$report_cat_values_arr		= mysqli_fetch_all($report_cat_values_sql, MYSQLI_ASSOC);	
 ?>
-<link rel="stylesheet" href="<?php echo $site_url ?>css/print.css">
-<script>
-	function printDiv(divName) {
-		var printContents = document.getElementById(divName).innerHTML;
-		var originalContents = document.body.innerHTML;
-	
-		document.body.innerHTML = printContents;
-	
-		window.print();
-	
-		document.body.innerHTML = originalContents;
-	}
-</script>
-
 
 <!-- Forms Section-->
-<section class="tables" id="print_area" style="padding-top: 30px;">   
+<section class="tables" style="padding-top: 30px;">   
 	<div class="container-fluid report_gen">
 		<div class="row gy-4">
 			<div class="col-lg-12">
 				<div class=" mb-0">
-					<div class=""  style="padding: 15px;">
+					<div class="" >
 						<div class="logo-image-outer no-border">
 							<center><div class="col-sm-2 no-float"><img class="logo-image" src="<?php echo $site_url ?>images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div></center>
 						</div>
@@ -97,16 +83,19 @@
 									$sec_type_3	= [];
 									
 									$i = 0; $j = 1;
-									
-									$do_split 	= (count($test_main_categories) > 3) ? 1 : 0;
+									//echo count($report_cat_values_arr);
+									$do_split 	= (count($report_cat_values_arr) > 3) ? 1 : 0;
 									$in_style 	= ($do_split == 1) ? '': 'float: none; margin: 0 auto; padding : 0';
-									$in_class 	= ($do_split == 1) ? 'col-sm-6': 'col-sm-9';
-									$border_right 	= ($do_split == 1) ? 'border-right: 2px solid #bababa; margin: 0; height: 10px;': '';
+									$in_class 	= ($do_split == 1) ? 'col-sm-6 split': 'col-sm-12';
+									$border_right 	= ($do_split == 1) ? 'border-right: 2px solid #bababa;': '';
 									$elb_class	= ($do_split == 1) ? 'border_new_under': '';
 									
 									echo '<div class="'.$in_class.'" style="'.$in_style.'">';
-										echo '<p style="'.$border_right.'">&nbsp;</p>
-											<p style="'.$border_right.'">&nbsp;</p>';
+										if($do_split == 1)
+											echo '<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>
+												<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>';
+										else
+											echo '<p style="'.$border_right.' margin: 0; height: 15px;">&nbsp;</p>';
 												
 										foreach($report_values_arr as $report_value) {
 												
@@ -115,31 +104,37 @@
 											$test_name	= $report_value['test_type_name'];
 												
 											$normal_range 	= ($report_value['normal_range'] != '') ? ucwords(strtolower($report_value['normal_range'])) : '';
-											$unit		= ($report_value['unit'] != '') ? '('.ucwords(strtolower($report_value['unit'])).')' : '';
+											$unit		= ($report_value['test_type_unit'] != '') ? '('.ucwords(strtolower($report_value['test_type_unit'])).')' : '';
 												
 											if($i == 0)
-												echo '<p style="'.$border_right.'"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
+												echo '<p style="'.$border_right.' margin: 0; height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
 											else{
 												$prev_cat_name	= $report_values_arr[$i - 1]['main_cat_name'];
 												if($main_cat_name != $prev_cat_name) {
 													$j++;
-													if(($j % 3) == 0)
+													if((($j % 3) == 0) && ($do_split == 1))
 														echo '</div>
-																<div class="col-sm-6">
-																	<p style="'.$border_right.'">&nbsp;</p>
-																	<p style="'.$border_right.'">&nbsp;</p>';
+																<div class="'.$in_class.'">
+																	<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>
+																	<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>';
 													
-													echo '<p style="'.$border_right.'">&nbsp;</p>
-														<p style="'.$border_right.'">&nbsp;</p>
-														<p style="'.$border_right.'"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
+													if($do_split == 1)
+														echo '<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>
+															<p style="'.$border_right.' margin: 0; height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>
+															<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>';
+													else
+														echo '<br>
+														<p style="'.$border_right.'margin: 0; height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
 												}
 											}
 												
-											echo '<div class="flex-container each_print_div '.$elb_class.'">
+											echo '<div class=" each_print_div '.$elb_class.'">
 													<div class="child item font-small-14">'.ucwords(strtolower($test_name)).' :</div>
 													<div class="child item item_mid ">'.ucwords(strtolower($report_value['result_value'])).'</div>
 													<div class="child item font-small-13">'.$normal_range.' '.$unit.'</div>
+													<div style="clear: both"></div>
 												</div>';
+												
 												
 											$i++;
 										}
@@ -152,7 +147,9 @@
 						<br>
 						<br>
 						<br>
-						<div class="row">
+						<br>
+						<br>
+						<div class="row signature_area">
 							<div class="col-sm-1"> &nbsp; </div>
 							<div class="col-sm-10" style="text-align: center;">
 								<div class="row">
@@ -170,13 +167,9 @@
 						</div>
 						<br>
 						<br>
-						<br>
-						<br>
-						<div style="text-align: center;">
+						<div class="print_btn" style="text-align: center;">
 							<button class="btn btn-primary edit_patient" onclick="printDiv('print_area')" type="button">Print</button>
 						</div>
-						<br>
-						<br>
 					</div>
 				</div>
 			</div>

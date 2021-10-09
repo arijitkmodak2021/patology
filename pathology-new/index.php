@@ -39,6 +39,7 @@
 		<link rel="stylesheet" href="<?php echo $site_url ?>css/responsive.css">
 		<!-- Favicon-->
 		<link rel="shortcut icon" href="<?php echo $site_url ?>img/favicon.ico">
+		<link rel="stylesheet" href="<?php echo $site_url ?>css/print.css">
 		<!-- Google fonts - Poppins -->
 		<link href="https://fonts.googleapis.com/css?family=Acme|Crete+Round|Merriweather+Sans|Poppins:300,400,700&display=swap" rel="stylesheet">
 		<script src="<?php echo $site_url ?>js/jquery-1.11.1.min.js"></script>
@@ -50,6 +51,16 @@
 		<script src="<?php echo $site_url ?>js/front.js"></script>
 		<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+		<script>
+			function printDiv(divName) {
+				
+				$(".header").hide();
+				$('.print_btn').hide();
+				$('.signature_area').attr('style', 'position: absolute;bottom: 0;left: 0;right: 0;')
+				window.print();
+			}
+		</script>
+	
 	</head>
 
 	<?php 
@@ -57,11 +68,12 @@
   
 		if(isset($_REQUEST['pages'])) {
 			if($_REQUEST['pages'] == '' || $_REQUEST['pages'] == 'login') $bg_class = 'bg_image';
+			elseif($_REQUEST['pages'] == '' || $_REQUEST['pages'] == 'print_test_reports') $bg_class = 'print_page';
 		}
 		else $bg_class = 'bg_image';
 	?>
 
-	<body class="<?php echo $bg_class; ?>">
+	<body id="<?php echo $bg_class ?>" class="<?php echo $bg_class; ?>">
 		<?php
 			if(isset($_SESSION['msg']) && ($_SESSION['msg'] != ''))
 			{

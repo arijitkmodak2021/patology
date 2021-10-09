@@ -20,6 +20,9 @@ a.selected
     top: 15px;
     margin: -17px 20px;
 }
+footer {
+	display: none;
+}
 .full_back_color {
     background: #ffedaa;
 }
@@ -383,10 +386,15 @@ ul:not(.browser-default) {
 }
 .child.item{
 	text-align: center;
-	font-weight: bold;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 200px;
+    float: left;
+    padding: 0 10px;
 }
 .child.item:first-child{
-	text-align: right;
+	    text-align: right;
+    margin-top: 11px;
 }
 .child.item:last-child{
 	text-align: left;
@@ -395,9 +403,9 @@ ul:not(.browser-default) {
 
 
 .child.item_mid{
-	flex-grow: 2; /* default 0 */
-	font-weight: normal;
-	border-bottom: 2px dotted #30323e;
+    font-weight: normal;
+    border-bottom: 1px dotted #30323e;
+    min-width: 300px;
 }
 .child.item_big{
 	flex-grow: 4; /* default 0 */
@@ -569,4 +577,9 @@ ul:not(.browser-default) {
 }
 .each_print_div{
 	    padding: 10px 0 10px;
+    display: block;
+  
+}
+.print_page .page{
+	background: none;
 }
