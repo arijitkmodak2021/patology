@@ -56,7 +56,9 @@
 				
 				$(".header").hide();
 				$('.print_btn').hide();
-				$('.signature_area').attr('style', 'position: absolute;bottom: 0;left: 0;right: 0;')
+				$('.print_page_head').hide();
+				
+				//$('.signature_area').attr('style', 'position: absolute;bottom: 0;left: 0;right: 0;')
 				window.print();
 			}
 		</script>

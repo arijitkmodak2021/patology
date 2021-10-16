@@ -12,6 +12,19 @@
         margin: 0 !important;
     }
     
+    .pagebreak  {page-break-after: always;}
+     .page{
+		background: none;
+    }
+   .card{
+	box-shadow: none;
+    }
+    .print_page_head {
+	display: none;
+    }
+    .print_forms{
+	padding: 0;
+    }
     .container {
         /* width: 816px;
         height: 1344; */
@@ -38,7 +51,7 @@
    #print_area{
 	padding: 0 !important;
    }
-   .tables .col-lg-12{
+   .print_page .col-lg-12{
 	padding: 0 20px;
 	margin-top: 0;
    }
@@ -186,12 +199,7 @@
     .print_btn{
 	display: none;
     }
-    .signature_area{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-    }
+   
     
     .split .child.item{
 	    
@@ -212,7 +220,5 @@
 	width: 130px;
 	word-break: break-all;
     }
-   .split .each_print_div {
-    padding: 5px 0 0px;
-}
+   
 }

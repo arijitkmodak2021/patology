@@ -49,16 +49,34 @@
 		}
 	}
 	
+?>	
+
+<!-- Page Header-->
+<header class="print_page_head bg-white shadow-sm px-4 py-3 z-index-20">
+	<div class="container-fluid px-0">
+		<h2 class="mb-0 p-1" style="display: inline-block;">
+			<small>Patient: </small><?php echo ucwords(strtolower($patien_details_arr[0]['name'])) ?>
+			<small>(Test Report On: <?php echo date("F j, Y, g:i a", strtotime($patien_report_details_arr[0]['create_date'])) ?>)</small>
+		</h2>
+			
+		<div class="print_btn" style="text-align: center;">
+			<button class="btn btn-primary edit_patient" onclick="printDiv('print_area')" type="button">Print</button>
+		</div>
+	</div>
+</header>
+
+<?php
+
 	foreach($final_gen_report as $final_report) {
 		
 ?>
-<!-- Forms Section-->
-<section pos="<?php echo $i; ?>" class="tables" style="padding-top: 30px;">   
+
+<section class="print_forms pagebreak">   
 	<div class="container-fluid report_gen">
 		<div class="row gy-4">
 			<div class="col-lg-12">
-				<div class=" mb-0">
-					<div class="" >
+				<div class="card mb-0">
+					<div class="print_content" >
 						<div class="logo-image-outer no-border">
 							<center><div class="col-sm-2 no-float"><img class="logo-image" src="<?php echo $site_url ?>images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div></center>
 						</div>
@@ -69,7 +87,7 @@
 						<div class="no-border"><center><h2 class="text-upper font-medium"><b>Kalna &nbsp;&nbsp;&nbsp;<i class="fas fa-arrows-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp; Purba Bardhaman</b></h2></center></div>
 						<div class="no-border"><center><span class="text-upper font-medium exm_report"><b>Blood Examination Report</b></span></center></div>
 						
-						<div class="">
+						<div class="test_content">
 							<div class="patient_det_sec">
 								<div class="row">
 									<div class="col-sm-6 no-right-padding">
@@ -102,79 +120,55 @@
 								</div>
 							</div>
 							
-							<div class="row patient_rpt_sec" style="margin: 0;">
+							<div class="patient_rpt_sec">
 								<?php
 									
 									$cat_grp_name 	= $report_value['cat_grp_name'];
 									$do_split 	= (count($final_report['test_values']) > 3) ? 1 : 0;
-									$in_style 	= ($do_split == 1) ? '': 'float: none; margin: 0 auto; padding : 0';
-									$in_class 	= ($do_split == 1) ? 'col-sm-6 split': 'col-sm-12';
-									$border_right 	= ($do_split == 1) ? 'border-right: 2px solid #bababa;': '';
-									$elb_class	= ($do_split == 1) ? 'border_new_under': '';	
+									$in_style 	= ($do_split == 1) ? '': 'padding : 0;';
+									$in_class 	= ($do_split == 1) ? 'split col-sm-6': 'col-sm-12';
+									$i = 0; 	
 										
-									foreach($final_report['test_values'] as $each_report_value) {
-											
-										$main_cat_name	= $each_report_value['main_cat_name'];
-											
-										$i = 0; $j = 1;
-										
-										foreach($each_report_value['values'] as $report_value) {
-											//echo '<pre>'; print_r($report_value); echo '</pre>'; die;
-											$test_name	= $report_value['test_type_name'];
-											
+									echo '<div class="row" style="margin: 0">';
+									
+										foreach($final_report['test_values'] as $each_report_value) {
+												
+											$main_cat_name	= $each_report_value['main_cat_name'];
+												
+											$j = 0;
 											echo '<div class="'.$in_class.'" style="'.$in_style.'">';
-												if($do_split == 1)
-													echo '<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>
-														<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>';
-												else
-													echo '<p style="'.$border_right.' margin: 0; height: 15px;">&nbsp;</p>';
-														
+											
+												foreach($each_report_value['values'] as $report_value) {
+													
+													$test_name	= $report_value['test_type_name'];
 													$normal_range 	= ($report_value['normal_range'] != '') ? ucwords(strtolower($report_value['normal_range'])) : '';
 													$unit		= ($report_value['test_type_unit'] != '') ? '('.ucwords(strtolower($report_value['test_type_unit'])).')' : '';
 														
-													if($i == 0)
-														echo '<p style="'.$border_right.' margin: 0; height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
-													//else{
-													//	$prev_cat_name	= $report_values_arr[$i - 1]['main_cat_name'];
-													//	if($main_cat_name != $prev_cat_name) {
-													//		$j++;
-													//		if((($j % 3) == 0) && ($do_split == 1))
-													//			echo '</div>
-													//					<div class="'.$in_class.'">
-													//						<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>
-													//						<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>';
-													//		
-													//		if($do_split == 1)
-													//			echo '<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>
-													//				<p style="'.$border_right.' margin: 0; height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>
-													//				<p style="'.$border_right.' margin: 0; height: 10px;">&nbsp;</p>';
-													//		else
-													//			echo '<br>
-													//			<p style="'.$border_right.'margin: 0; height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
-													//	}
-													//}
-														
-													echo '<div class=" each_print_div '.$elb_class.'">
+													if($j == 0)
+														echo '<p style="margin: 15px 0 0; min-height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
+													
+													echo '<div class="each_print_div">
 															<div class="child item font-small-14">'.ucwords(strtolower($test_name)).' :</div>
 															<div class="child item item_mid ">'.ucwords(strtolower($report_value['result_value'])).'</div>
 															<div class="child item font-small-13">'.$normal_range.' '.$unit.'</div>
 															<div style="clear: both"></div>
 														</div>';
 														
-														
-													$i++;
-												
-	
-												
+													$j++;
+											}
+											
 											echo '</div>';
+											
+											$i++;
+											
+											if($i %2 == 0)
+												echo '</div><div class="row">';
 										}
-									}
+										
+									echo '</div>';
 								?>
 							</div>
 						</div>
-						<br>
-						<br>
-						<br>
 						<br>
 						<br>
 						<br>
@@ -183,21 +177,14 @@
 							<div class="col-sm-10" style="text-align: center;">
 								<div class="row">
 									<div class="col-sm-6">
-										<br>
-										<p>Signature of Medical Technologist (Lab)</p>
+										<span>Signature of <br>Medical Technologist (Lab)</span>
 									</div>
 									<div class="col-sm-6">
-										<br>
-										<p>Signature of Medical Officer/Pathologist</p>
+										<span>Signature of <br>Medical Officer/Pathologist</span>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-1"> &nbsp; </div>
-						</div>
-						<br>
-						<br>
-						<div class="print_btn" style="text-align: center;">
-							<button class="btn btn-primary edit_patient" onclick="printDiv('print_area')" type="button">Print</button>
 						</div>
 					</div>
 				</div>
@@ -205,5 +192,4 @@
 		</div>
 	</div>
 </section>
-
-<?php } echo 'loop end' ?>
+<?php } ?>

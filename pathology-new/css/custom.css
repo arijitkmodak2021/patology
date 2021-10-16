@@ -356,10 +356,7 @@ ul:not(.browser-default) {
 .patient_det span{
 	font-size: 15px;
 }
-.edit_patient{
-	position: absolute;
-	right: 20px;
-}
+
 .tag_div{
 	    width: auto;
     float: left;
@@ -580,6 +577,34 @@ ul:not(.browser-default) {
     display: block;
   
 }
-.print_page .page{
-	background: none;
+.print_forms{
+	    padding: 30px 0 0;
+	position: relative;
+}
+.print_content{
+	padding: 20px;
+}
+.split .each_print_div {
+    padding: 5px 0 0px;
+}
+.split.col-sm-6{
+	border-right: 2px solid #bababa;
+}
+.split.col-sm-6:last-child {
+    border-right: 0;
+}
+.test_content{
+	min-height: 900px;
+}
+.patient_rpt_sec{
+	margin: 0; 
+}
+.print_btn{
+	text-align: center;
+    display: inline-block;
+    float: right;
+}
+
+.signature_area {
+   
 }
