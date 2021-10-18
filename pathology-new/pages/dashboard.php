@@ -30,7 +30,7 @@
                           </svg>
                         </div>
                         <div class="mx-3">
-                          <h6 class="h4 fw-light text-gray-600 mb-3">New<br>Clients</h6>
+                          <h6 class="h4 fw-light text-gray-600 mb-3">New<br>patients</h6>
                           <div class="progress" style="height: 4px">
                             <div class="progress-bar bg-violet" role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
@@ -47,7 +47,7 @@
                           </svg>
                         </div>
                         <div class="mx-3">
-                          <h6 class="h4 fw-light text-gray-600 mb-3">Work<br>Orders</h6>
+                          <h6 class="h4 fw-light text-gray-600 mb-3">Total<br>Tests</h6>
                           <div class="progress" style="height: 4px">
                             <div class="progress-bar bg-red" role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
@@ -56,7 +56,7 @@
                       </div>
                     </div>
                     <!-- Item -->
-                    <div class="col-xl-3 col-sm-6 py-4 border-lg-end border-gray-200">
+                    <div class="col-xl-3 col-sm-6 py-4 border-lg-end border-gray-200 hide">
                       <div class="d-flex align-items-center">
                         <div class="icon flex-shrink-0 bg-green">
                           <svg class="svg-icon svg-icon-sm svg-icon-heavy">
@@ -73,7 +73,7 @@
                       </div>
                     </div>
                     <!-- Item -->
-                    <div class="col-xl-3 col-sm-6 py-4">
+                    <div class="col-xl-3 col-sm-6 py-4 hide">
                       <div class="d-flex align-items-center">
                         <div class="icon flex-shrink-0 bg-orange">
                           <svg class="svg-icon svg-icon-sm svg-icon-heavy">
