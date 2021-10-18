@@ -20,9 +20,7 @@ a.selected
     top: 15px;
     margin: -17px 20px;
 }
-footer {
-	display: none;
-}
+
 .full_back_color {
     background: #ffedaa;
 }
@@ -393,8 +391,10 @@ ul:not(.browser-default) {
 	    text-align: right;
     margin-top: 11px;
 }
-.child.item:last-child{
+.child.item.normal_range{
 	text-align: left;
+    word-break: break-word;
+    max-width: 150px;
 }
 
 
@@ -589,9 +589,11 @@ ul:not(.browser-default) {
 }
 .split.col-sm-6{
 	border-right: 2px solid #bababa;
+	width: 49%;
 }
 .split.col-sm-6:last-child {
     border-right: 0;
+        padding-left: 15px;
 }
 .test_content{
 	min-height: 900px;

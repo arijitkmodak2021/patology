@@ -69,6 +69,12 @@
 
 	foreach($final_gen_report as $final_report) {
 		
+		//echo '<pre>'; print_r($final_report); echo '</pre>';
+		$cat_grp_name 	= $final_report['cat_grp_name'];
+		
+		if($cat_grp_name == 'Urine Test') 		$show_title = 'Clinical Pathology';
+		else if ($cat_grp_name == 'Stool Test')	$show_title = 'Clinical Pathology';
+		else $show_title = 'Blood Examination Report';
 ?>
 
 <section class="print_forms pagebreak">   
@@ -85,7 +91,7 @@
 						<div class="no-border"><center><h2><b class="text-upper font-big">Kalna Sub Divisional & Super Speciality Hospital</b></h2></center></div>
 						<div class="no-border"><center><h2 class="text-upper font-medium"><b>Clinical Pathology</b></h2></center></div>
 						<div class="no-border"><center><h2 class="text-upper font-medium"><b>Kalna &nbsp;&nbsp;&nbsp;<i class="fas fa-arrows-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp; Purba Bardhaman</b></h2></center></div>
-						<div class="no-border"><center><span class="text-upper font-medium exm_report"><b>Blood Examination Report</b></span></center></div>
+						<div class="no-border"><center><span class="text-upper font-medium exm_report"><b><?php echo $show_title ?></b></span></center></div>
 						
 						<div class="test_content">
 							<div class="patient_det_sec">
@@ -122,8 +128,6 @@
 							
 							<div class="patient_rpt_sec">
 								<?php
-									
-									$cat_grp_name 	= $report_value['cat_grp_name'];
 									$do_split 	= (count($final_report['test_values']) > 3) ? 1 : 0;
 									$in_style 	= ($do_split == 1) ? '': 'padding : 0;';
 									$in_class 	= ($do_split == 1) ? 'split col-sm-6': 'col-sm-12';
@@ -148,9 +152,9 @@
 														echo '<p style="margin: 15px 0 0; min-height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
 													
 													echo '<div class="each_print_div">
-															<div class="child item font-small-14">'.ucwords(strtolower($test_name)).' :</div>
+															<div class="child item font-small-14">'.ucwords(strtolower($test_name)).'&nbsp;</div>
 															<div class="child item item_mid ">'.ucwords(strtolower($report_value['result_value'])).'</div>
-															<div class="child item font-small-13">'.$normal_range.' '.$unit.'</div>
+															<div class="child item normal_range font-small-13">'.$normal_range.' '.$unit.'</div>
 															<div style="clear: both"></div>
 														</div>';
 														

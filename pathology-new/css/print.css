@@ -11,7 +11,9 @@
         padding: 0 !important;
         margin: 0 !important;
     }
-    
+    footer {
+	display: none;
+}
     .pagebreak  {page-break-after: always;}
      .page{
 		background: none;
@@ -206,7 +208,6 @@
        padding: 0;
     font-size: 12px;
     min-width: auto;
-    text-align: left;
     }
    .split  .child.item_mid{
 	min-width: 150px;
@@ -221,4 +222,8 @@
 	word-break: break-all;
     }
    
+   
+   .split .child.item.normal_range{
+	max-width: 100px;
+   }
 }

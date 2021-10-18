@@ -21,13 +21,34 @@
 	//print_r($_REQUEST);
 	//echo '</pre>';
 	//die;
+	$page_title	= 'Kalna Super Specility Hospital - Pathology Department';
+	
+	if(isset($_REQUEST['pages'])) {
+		if($_REQUEST['pages'] == 'dashboard') 				$page_title = $page_title.' - Dashboard';
+		elseif($_REQUEST['pages'] == 'login') 				$page_title = $page_title.' - Login';
+		elseif($_REQUEST['pages'] == 'test_types') 			$page_title = $page_title.' - Test Types';
+		elseif($_REQUEST['pages'] == 'create_test_type') 		$page_title = $page_title.' - Create Test Type';
+		elseif($_REQUEST['pages'] == 'edit_test_types') 		$page_title = $page_title.' - Edit Test Type';
+		elseif($_REQUEST['pages'] == 'test_reports') 		$page_title = $page_title.' - Test Reports';
+		elseif($_REQUEST['pages'] == 'create_test_report') 	$page_title = $page_title.' - Generate Test Report';
+		elseif($_REQUEST['pages'] == 'print_test_reports'){
+			
+			$treport_id				= (isset($_REQUEST['report_id']) && !empty($_REQUEST['report_id'])) ? $_REQUEST['report_id'] : 0;
+			$tpatien_report_details_sql	= mysqli_query($link, "SELECT p.registration_no, p.name, pt.create_date FROM patient_tests as pt, patient_details as p where pt.id = '".$treport_id."' and p.id = pt.p_id;");
+			$tpatien_report_details_arr 	= mysqli_fetch_all($tpatien_report_details_sql, MYSQLI_ASSOC);
+			
+			if(isset($tpatien_report_details_arr[0]) and $tpatien_report_details_arr[0]['name'] != '')
+				$page_title = 'Pathology Lab Report - '.ucwords($tpatien_report_details_arr[0]['name']).' '.ucwords($tpatien_report_details_arr[0]['registration_no']).' - '.date("d-m-Y", strtotime($tpatien_report_details_arr[0]['create_date']));
+		}
+		
+	}
 ?>
 
 <html>
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Pathology Lab Report </title>
+		<title><?php echo $page_title ?></title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="robots" content="all,follow">
@@ -54,9 +75,9 @@
 		<script>
 			function printDiv(divName) {
 				
-				$(".header").hide();
-				$('.print_btn').hide();
-				$('.print_page_head').hide();
+				//$(".header").hide();
+				//$('.print_btn').hide();
+				//$('.print_page_head').hide();
 				
 				//$('.signature_area').attr('style', 'position: absolute;bottom: 0;left: 0;right: 0;')
 				window.print();
