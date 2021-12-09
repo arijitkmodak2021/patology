@@ -30,6 +30,11 @@ RewriteRule ^print-report$					index.php?pages=print_test_reports
 RewriteRule ^print-report/([0-9]*)$			index.php?pages=print_test_reports&report_id=$1
 
 
+RewriteRule ^profile$					index.php?pages=user_profile
+
+
+
+
 AddType font/ttf .ttf
 AddType font/eot .eot
 AddType font/otf .otf

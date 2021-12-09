@@ -74,6 +74,13 @@
 									<input class="input-material" id="login-password" type="password" auto-complete="off" name="loginPassword" value="<?php echo (isset($_COOKIE['loginPassword'])) ? $_COOKIE['loginPassword'] : ''; ?>" required data-validate-field="loginPassword">
 									<label class="label-material" id="password_level" for="login-password">Operator password</label>
 								</div>
+								<div class="captcha_verify_btn">
+									<div class="captcha_checkbox">
+										<input class="form-check-input" name="cpt_chck" value="1" id="cpt_chck" type="checkbox">
+									</div>
+									<div class="cpt_text">I am not a Robot. <span><img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" /></span></div>
+								</div>
+								<br>
 								<button class="btn btn-primary mb-3" id="login" type="submit">Login</button>
 								<div class="form-check">
 									<input class="form-check-input" <?php echo (isset($_COOKIE['remember_chck'])) ? 'checked' : ''; ?> name="remember_chck" value="1" id="defaultCheck0" type="checkbox">

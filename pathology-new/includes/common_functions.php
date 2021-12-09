@@ -33,53 +33,49 @@
             header("Location:".$site_url."index.php?pages=login");
         }
     }
-    elseif($mode_name == 'user_login') {
-
-        //print_r($_REQUEST);
-        //$login_type = (isset($_REQUEST['login_type'])) ? $_REQUEST['login_type'] : 'opt';
-        $login_sql  = "SELECT * FROM users WHERE user_name='".mysqli_real_escape_string($link, $_REQUEST['loginUsername'])."' AND password='".$_REQUEST['loginPassword']."' ";
-        //echo 'A: '.$login_sql; die;
-        $login_rs       = mysqli_query($link, $login_sql);
-
-        if(mysqli_num_rows($login_rs)>0)
-        {
-            $login_row  = mysqli_fetch_array($login_rs);
-
-            $subadmin=$login_row['id'];
-            $_SESSION['userId'] = $login_row['id'];
-            $_SESSION['username'] = $login_row['user_name'];
-            $_SESSION['password'] = $login_row['password'];
-            $_SESSION['is_logged_in'] = 1;
-            $_SESSION['is_sub_user'] = $login_row['is_subadmin'];
-            $_SESSION['success_msg']  = '';
-
-            if($_REQUEST['remember_chck'] == 1) {
-                $_COOKIE['loginUsername'] = $login_row['user_name'];
-                $_COOKIE['loginPassword'] = $login_row['password'];
-                $_COOKIE['remember_chck'] = 1;
-                
-                setcookie('loginUsername', $login_row['user_name'], time()+60*60*24*365, '/');
-                setcookie('loginPassword', $login_row['password'], time()+60*60*24*365, '/');
-                setcookie('remember_chck', 1, time()+60*60*24*365, '/'); 
-            }
-            else{
-                unset($_COOKIE['loginUsername']);
-                unset($_COOKIE['loginPassword']);
-                unset($_COOKIE['remember_chck']);
-                
-                setcookie('loginUsername', null, -1, '/');
-                setcookie('loginPassword', null, -1, '/');
-                setcookie('remember_chck', null, -1, '/');
-            }
-            
-            //print_r($_COOKIE);die;
-            header("Location:".$site_url."dashboard");
-        }
-        else {
-            $_SESSION['error_msg']  = 'Invalid username or password. Please try again.';
-            header("Location:".$site_url."login");
-        }
-    }
+	elseif($mode_name == 'user_login') {
+			
+		$login_sql  	= "SELECT * FROM users WHERE user_name='".mysqli_real_escape_string($link, $_REQUEST['loginUsername'])."' AND password='".$_REQUEST['loginPassword']."' ";
+		$login_rs		= mysqli_query($link, $login_sql);
+			
+		if(mysqli_num_rows($login_rs)>0)
+		{
+			$login_row  				= mysqli_fetch_array($login_rs);
+				
+			$subadmin					= $login_row['id'];
+			$_SESSION['userId'] 		= $login_row['id'];
+			$_SESSION['username'] 		= $login_row['user_name'];
+			$_SESSION['password'] 		= $login_row['password'];
+			$_SESSION['is_logged_in']	= 1;
+			$_SESSION['is_sub_user'] 	= $login_row['is_subadmin'];
+			$_SESSION['success_msg']  	= '';
+   
+			if($_REQUEST['remember_chck'] == 1) {
+				$_COOKIE['loginUsername'] = $login_row['user_name'];
+				$_COOKIE['loginPassword'] = $login_row['password'];
+				$_COOKIE['remember_chck'] = 1;
+					 
+				setcookie('loginUsername', $login_row['user_name'], time()+60*60*24*365, '/');
+				setcookie('loginPassword', $login_row['password'], time()+60*60*24*365, '/');
+				setcookie('remember_chck', 1, time()+60*60*24*365, '/'); 
+			}
+			else{
+				unset($_COOKIE['loginUsername']);
+				unset($_COOKIE['loginPassword']);
+				unset($_COOKIE['remember_chck']);
+					
+				setcookie('loginUsername', null, -1, '/');
+				setcookie('loginPassword', null, -1, '/');
+				setcookie('remember_chck', null, -1, '/');
+			}
+				
+			header("Location:".$site_url."dashboard");
+		}
+		else {
+			$_SESSION['error_msg']  = 'Invalid username or password. Please try again.';
+			header("Location:".$site_url."login");
+		}
+	}
 	elseif($mode_name == 'logout') {
 	    
 		unset($_SESSION['userId']);
