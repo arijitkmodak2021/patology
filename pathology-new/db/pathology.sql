@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2021 at 08:48 PM
+-- Generation Time: Dec 09, 2021 at 06:27 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -39,7 +39,8 @@ CREATE TABLE `doctor_list` (
 --
 
 INSERT INTO `doctor_list` (`id`, `name`, `details`, `status`) VALUES
-(1, 'Arijit Kumar Modak', '', 1);
+(1, 'Arijit Kumar Modak', '', 1),
+(2, 'Test Doctor 1', '', 1);
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,8 @@ CREATE TABLE `patient_details` (
 --
 
 INSERT INTO `patient_details` (`id`, `patient_id`, `registration_no`, `name`, `image`, `gender`, `dob`, `age`, `mobile_no`, `height`, `weight`, `blood_group`, `address`, `word_no`, `word_name`, `created_by`, `doctor_name`, `created_date`, `modified_by`, `modified_date`, `status`) VALUES
-(5, 'P-202189637', 'reg-1234567890', 'Jane Doe', '', 'F', '1970-01-01', 24, '9123456789', '5\"7\'', '68', 'B+', '12/3 Sample Road, Newcity, Dist1, West Bengal, 75321', 2, 'Word No 2', 'operator_01', 'Arijit Kumar Modak', '2021-09-25 00:00:00', 0, '0000-00-00 00:00:00', 1);
+(5, 'P-202189637', 'reg-1234567890', 'Jane Doe', '', 'F', '1970-01-01', 24, '9123456789', '5\"7\'', '68', 'B+', '12/3 Sample Road, Newcity, Dist1, West Bengal, 75321', 2, 'Word No 2', 'operator_01', 'Arijit Kumar Modak', '2021-09-25 00:00:00', 0, '0000-00-00 00:00:00', 1),
+(6, 'P-202199474', 'reg-1234567892', 'Test patient', '', 'M', '0000-00-00', 34, '9123456789', '', '', '', '', 3, 'Word No 3', 'operator_01', 'Test Doctor 1', '2021-09-30 00:00:00', 0, '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -152,7 +154,27 @@ INSERT INTO `patient_report` (`id`, `p_id`, `report_id`, `patient_id`, `cat_grp_
 (45, 5, 8, 'P-202189637', 'Sort Blood Test', 3, 'HAEMATOLOGY', 32, 'Total R.B.C Count', '', '4.5 - 6.5 Million/ Cumm', '7', '2021-09-26 00:00:00', 1),
 (46, 5, 8, 'P-202189637', 'Sort Blood Test', 3, 'HAEMATOLOGY', 31, 'Total W.B.C Count', '', '4000 - 10000 /Cumm', '400000', '2021-09-26 00:00:00', 1),
 (47, 5, 8, 'P-202189637', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '67', '2021-09-26 00:00:00', 1),
-(48, 5, 8, 'P-202189637', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', '99', '2021-09-26 00:00:00', 1);
+(48, 5, 8, 'P-202189637', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', '99', '2021-09-26 00:00:00', 1),
+(54, 6, 10, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 29, 'HAEMOGLOBIN', 'gms%', 'M 13.5 - 15.5 / F 12.5 - 14.5 gms', '8', '2021-09-30 00:00:00', 1),
+(55, 6, 10, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 30, 'PACKED CELL VOLUME', '', 'F 36 - 47% / M 40 - 54%', '4', '2021-09-30 00:00:00', 1),
+(56, 6, 10, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 32, 'Total R.B.C Count', '', '4.5 - 6.5 Million/ Cumm', '2', '2021-09-30 00:00:00', 1),
+(57, 6, 10, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 31, 'Total W.B.C Count', '', '4000 - 10000 /Cumm', '7', '2021-09-30 00:00:00', 1),
+(58, 6, 10, 'P-202199474', 'Stool Test', 8, 'Chemical', 51, 'St-ch-1', 'mg/l', '12 - 28', '6', '2021-09-30 00:00:00', 1),
+(59, 6, 10, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '67', '2021-09-30 00:00:00', 1),
+(60, 6, 10, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', '34', '2021-09-30 00:00:00', 1),
+(61, 6, 11, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '5', '2021-10-01 00:00:00', 1),
+(62, 6, 11, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', 'u', '2021-10-01 00:00:00', 1),
+(63, 6, 12, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '5', '2021-10-01 00:00:00', 1),
+(64, 6, 12, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', 'u', '2021-10-01 00:00:00', 1),
+(65, 6, 13, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 28, 'Deposits', '', '', '5', '2021-10-01 00:00:00', 1),
+(66, 6, 13, 'P-202199474', 'Urine Test', 6, 'URINE ANALYSIS', 27, 'URINE PREGNANCY', '', '', 'u', '2021-10-01 00:00:00', 1),
+(74, 6, 23, 'P-202199474', 'Blood Test', 1, 'BIO-CHEMISTRY', 10, 'Blood Urea', 'mg/dl', '15 - 45', '65', '2021-10-04 00:00:00', 1),
+(75, 6, 23, 'P-202199474', 'Blood Test', 1, 'BIO-CHEMISTRY', 6, 'Fasting', 'mg/dl', '60 - 110', '80', '2021-10-04 00:00:00', 1),
+(76, 6, 23, 'P-202199474', 'Blood Test', 1, 'BIO-CHEMISTRY', 7, 'Serum Uric Acid', 'mg/dl', '1.5 - 7.0', '4', '2021-10-04 00:00:00', 1),
+(77, 6, 23, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 29, 'HAEMOGLOBIN', 'gms%', 'M 13.5 - 15.5 / F 12.5 - 14.5 gms', '15', '2021-10-04 00:00:00', 1),
+(78, 6, 23, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 30, 'PACKED CELL VOLUME', '', 'F 36 - 47% / M 40 - 54%', '45', '2021-10-04 00:00:00', 1),
+(79, 6, 23, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 32, 'Total R.B.C Count', '', '4.5 - 6.5 Million/ Cumm', '8', '2021-10-04 00:00:00', 1),
+(80, 6, 23, 'P-202199474', 'Sort Blood Test', 3, 'HAEMATOLOGY', 31, 'Total W.B.C Count', '', '4000 - 10000 /Cumm', '400000', '2021-10-04 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -162,7 +184,9 @@ INSERT INTO `patient_report` (`id`, `p_id`, `report_id`, `patient_id`, `cat_grp_
 
 CREATE TABLE `patient_tests` (
   `id` int(11) NOT NULL,
-  `patient_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `patient_id` varchar(255) NOT NULL,
+  `test_main_categories` text NOT NULL,
   `created_by` varchar(255) NOT NULL,
   `doctor_name` varchar(255) NOT NULL,
   `word_no` varchar(255) NOT NULL,
@@ -177,9 +201,12 @@ CREATE TABLE `patient_tests` (
 -- Dumping data for table `patient_tests`
 --
 
-INSERT INTO `patient_tests` (`id`, `patient_id`, `created_by`, `doctor_name`, `word_no`, `notes`, `modified_by`, `modified_date`, `create_date`, `status`) VALUES
-(6, 5, 'operator_01', 'Arijit Kumar Modak', 'Word No 2', '', '', '0000-00-00 00:00:00', '2021-09-26 00:00:00', 1),
-(8, 5, 'operator_01', 'Arijit Kumar Modak', 'Word No 2', '', '', '0000-00-00 00:00:00', '2021-09-26 00:00:00', 1);
+INSERT INTO `patient_tests` (`id`, `p_id`, `patient_id`, `test_main_categories`, `created_by`, `doctor_name`, `word_no`, `notes`, `modified_by`, `modified_date`, `create_date`, `status`) VALUES
+(6, 5, 'P-202189637', 'Blood Test, Sort Blood Test, Urine Test', 'operator_01', 'Arijit Kumar Modak', 'Word No 2', '', '', '0000-00-00 00:00:00', '2021-09-26 00:00:00', 1),
+(8, 5, 'P-202189637', 'Sort Blood Test, Urine Test', 'operator_01', 'Arijit Kumar Modak', 'Word No 2', '', '', '0000-00-00 00:00:00', '2021-09-26 00:00:00', 1),
+(10, 6, 'P-202199474', 'Sort Blood Test, Stool Test, Urine Test', 'operator_01', 'Test Doctor 1', 'Word No 3', '', '', '0000-00-00 00:00:00', '2021-09-30 00:00:00', 1),
+(13, 6, 'P-202199474', 'Urine Test', 'operator_01', 'Test Doctor 1', 'Word No 3', '', '', '0000-00-00 00:00:00', '2021-10-01 00:00:00', 1),
+(23, 6, 'P-202199474', 'Blood Test,Sort Blood Test', 'operator_01', 'Test Doctor 1', 'Word No 3', '', '', '0000-00-00 00:00:00', '2021-10-04 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -245,7 +272,8 @@ INSERT INTO `tests_type` (`id`, `category_id`, `serial_no`, `name`, `category_na
 (44, 2, 40, 'Bleeding Time', 'DIFFERENTIAL COUNT', 'Mts', '55.00000000', '1 - 6 Mts', 1),
 (45, 2, 41, 'Clotting Time', 'DIFFERENTIAL COUNT', 'Mts', '60.00000000', '8 - 18 Mts', 1),
 (46, 2, 42, 'M P Card', 'DIFFERENTIAL COUNT', '', '60.00000000', '', 1),
-(47, 2, 43, 'M F', 'DIFFERENTIAL COUNT', '', '50.00000000', '', 1);
+(47, 2, 43, 'M F', 'DIFFERENTIAL COUNT', '', '50.00000000', '', 1),
+(51, 8, 0, 'St-ch-1', 'Chemical', 'mg/l', '0.00000000', '12 - 28', 1);
 
 -- --------------------------------------------------------
 
@@ -289,6 +317,7 @@ INSERT INTO `test_categories` (`id`, `main_category`, `test_category`, `status`)
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -305,10 +334,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `user_name`, `password`, `email`, `user_type`, `status`, `is_deleted`, `is_subadmin`, `created_date`, `modified_by`, `modified_date`) VALUES
-(1, 'Admin', 'admin_user_01', '12345678', 'admin@pathologylabs.com', 1, 1, 0, 0, '0000-00-00 00:00:00', NULL, NULL),
-(2, 'Operator', 'operator_01', '12345678', 'operator@pathologylabs.com', 2, 1, 0, 1, '2016-06-04 03:00:07', NULL, '2016-06-04 03:00:07'),
-(3, 'Patient', 'patient_01', '12345678', 'patient@pathologylabs.com', 3, 1, 0, 1, '2016-06-04 03:01:08', NULL, '2016-06-04 03:01:08');
+INSERT INTO `users` (`id`, `name`, `role`, `user_name`, `password`, `email`, `user_type`, `status`, `is_deleted`, `is_subadmin`, `created_date`, `modified_by`, `modified_date`) VALUES
+(1, 'Admin 01', 'Administrator', 'admin_user_01', '12345678', 'admin@pathologylabs.com', 1, 1, 0, 0, '0000-00-00 00:00:00', NULL, NULL),
+(2, 'Test Ope 01', 'Operator', 'operator_01', '12345678', 'operator@pathologylabs.com', 2, 1, 0, 1, '2016-06-04 03:00:07', NULL, '2016-06-04 03:00:07'),
+(3, 'Test Pat 01', 'Patient', 'patient_01', '12345678', 'patient@pathologylabs.com', 3, 1, 0, 1, '2016-06-04 03:01:08', NULL, '2016-06-04 03:01:08');
 
 -- --------------------------------------------------------
 
@@ -395,31 +424,31 @@ ALTER TABLE `word_details`
 -- AUTO_INCREMENT for table `doctor_list`
 --
 ALTER TABLE `doctor_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `patient_details`
 --
 ALTER TABLE `patient_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `patient_report`
 --
 ALTER TABLE `patient_report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `patient_tests`
 --
 ALTER TABLE `patient_tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tests_type`
 --
 ALTER TABLE `tests_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `test_categories`
