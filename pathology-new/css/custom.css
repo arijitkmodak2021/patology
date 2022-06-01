@@ -105,9 +105,11 @@ a.selected
 }
 .description_list li{
     list-style-type: decimal;
-    
-
+  
 }
+.float-right {
+    float: right;
+} 
 .input_underline{
     border: none;
     background: transparent;
@@ -201,11 +203,18 @@ a.selected
 	font-size: 25px;
 	font-weight: 700;
 }
+.font-low{
+	font-size: 22px;
+}
+.font-xsmall{
+	font-size: 15px;
+}
 .report_gen{
 	color: #30323e;
 }
 .report_gen h2 {
 	margin-bottom: 0;
+    font-size: 22px;
 }
 .patient_det_sec{
 	border: 2px solid #30323e;
@@ -596,7 +605,7 @@ ul:not(.browser-default) {
         padding-left: 15px;
 }
 .test_content{
-	min-height: 900px;
+	/* min-height: 900px; */
 }
 .patient_rpt_sec{
 	margin: 0; 

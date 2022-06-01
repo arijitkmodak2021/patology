@@ -83,20 +83,30 @@
 			<div class="col-lg-12">
 				<div class="card mb-0">
 					<div class="print_content" >
-						<div class="logo-image-outer no-border">
-							<center><div class="col-sm-2 no-float"><img class="logo-image" src="<?php echo $site_url ?>images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div></center>
+						<div class="header_content row">
+							<div class="col-sm-2 padding_left_0">
+								<div class="float-right"><img class="logo-image" src="<?php echo $site_url ?>images/Emblem_of_West_Bengal.png" alt="Emblem_of_West_Bengal" /></div>
+							</div>
+							<div class="col-sm-8 padding_left_0">
+								<div class="no-border"><center><h2><b>Govt. of West Bengal</b></h2></center></div>
+								<div class="no-border"><center><h2><b class="text-upper font-medium">Kalna Sub Divisional & Super Speciality Hospital</b></h2></center>
+								</div>
+								<div class="no-border"><center><h2 class="text-upper font-medium"><b>Clinical Pathology</b></h2></center></div>
+								<div class="no-border"><center><h2 class="text-upper font-medium"><b>Kalna &nbsp;&nbsp;&nbsp;<i class="fas fa-arrows-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp; Purba Bardhaman</b></h2></center></div>
+								<div class="margin-bottom-5"></div>
+								<div class="no-border"><center><span class="text-upper font-low exm_report"><b><?php echo $show_title ?></b></span></center></div>
+							</div>
+							<div class="col-sm-2 padding_left_0 font-xsmall"> 
+								<span><b>Reort No:</b> <?php echo 'Rep-'.date('Ymd').'-'.$_REQUEST['report_id'].'V1' ?></span>
+							</div>
+
 						</div>
-						<div class="margin-bottom-5"></div>
-						<div class="no-border"><center><h2><b>Govt. of West Bengal</b></h2></center></div>
-						<div class="no-border"><center><h2><b class="text-upper font-big">Kalna Sub Divisional & Super Speciality Hospital</b></h2></center></div>
-						<div class="no-border"><center><h2 class="text-upper font-medium"><b>Clinical Pathology</b></h2></center></div>
-						<div class="no-border"><center><h2 class="text-upper font-medium"><b>Kalna &nbsp;&nbsp;&nbsp;<i class="fas fa-arrows-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp; Purba Bardhaman</b></h2></center></div>
-						<div class="no-border"><center><span class="text-upper font-medium exm_report"><b><?php echo $show_title ?></b></span></center></div>
+						
 						
 						<div class="test_content">
 							<div class="patient_det_sec">
 								<div class="row">
-									<div class="col-sm-6 no-right-padding">
+									<div class="col-sm-5 no-right-padding">
 										<div class="tag_div">Name</div>
 										<div class="value_div border-under p_w_85"><?php echo ucwords(strtolower($patien_details_arr[0]['name'])) ?></div>
 									</div>
@@ -108,7 +118,7 @@
 										<div class="tag_div">Sex</div>
 										<div class="value_div border-under p_w_75"><?php echo ucwords(strtolower($patien_details_arr[0]['gender'])) ?></div>
 									</div>
-									<div class="col-sm-2 no-left-padding">
+									<div class="col-sm-3 no-left-padding">
 										<div class="tag_div">Word</div>
 										<div class="value_div border-under p_w_65"><?php echo ucwords(strtolower(str_replace('Word No ', '', $patien_report_details_arr[0]['word_no']))) ?></div>
 									</div>
