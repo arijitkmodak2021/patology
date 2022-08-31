@@ -146,19 +146,25 @@
 		}                         
 	}
 	elseif($mode_name == 'generate_report') {
-			
+		//echo '<pre>'; print_r($_REQUEST); echo '</pre>';
+
 		$test_values		= $_REQUEST['test_value'];
 		$reg_patient_id	= $_REQUEST['final_patient_id'];
 		$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where id = '".$reg_patient_id."';");
 		$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 		$pid 			= $patien_details_arr[0]['id'];	
 			
+        $pathologist_list_sql	= mysqli_query($link, "SELECT * FROM pathologists_list where id = '".$_REQUEST['search_pathologist_id']."';");
+	    $pathologist_list_arr = mysqli_fetch_all($pathologist_list_sql, MYSQLI_ASSOC);
+
 		$p_tests_insert	= 'insert into patient_tests set
 							p_id					= "'.$patien_details_arr[0]['id'].'",
 							patient_id			= "'.$patien_details_arr[0]['patient_id'].'",
 							test_main_categories 	= "",
 							created_by			= "'.$patien_details_arr[0]['created_by'].'",
 							doctor_name			= "'.$patien_details_arr[0]['doctor_name'].'",
+                            pathologist_id		= "'.$_REQUEST['search_pathologist_id'].'",
+                            pathologist_name	= "'.$pathologist_list_arr[0]['name'].'",
 							word_no				= "'.$patien_details_arr[0]['word_name'].'",
 							create_date			= "'.date('y-m-d').'",
 							status				= 1';

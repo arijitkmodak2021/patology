@@ -30,6 +30,11 @@
 	$reg_patient_id	= (isset($_REQUEST['patient_id']) && !empty($_REQUEST['patient_id'])) ? $_REQUEST['patient_id'] : 0;
 	$patien_details_sql	= mysqli_query($link, "SELECT * FROM patient_details where id = '".$reg_patient_id."';");
 	$patien_details_arr = mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
+	
+	
+	$pathologist_list_sql	= mysqli_query($link, "SELECT * FROM pathologists_list where status = '1';");
+	$pathologist_list_arr = mysqli_fetch_all($pathologist_list_sql, MYSQLI_ASSOC);
+	
 ?>
 <link rel="stylesheet" href="<?php echo $site_url ?>css/selectstyle.css">
 <script src="<?php echo $site_url; ?>js/selectstyle.js"></script>
@@ -266,6 +271,8 @@
 			$("#edit_md_close").click();
 		}
 	}
+
+	
 </script>
 
 <!-- Page Header-->
@@ -463,6 +470,7 @@
 								</select>
 							</div>
 						</div>
+						
 						<!---- Search patient area -->
 						<!---- Main form start area -->
 						<form name="generate_report" id="generate_report" action="<?php echo $site_url."includes/common_functions.php" ?>" onsubmit="return check_validate()" method="post" class="generate_report form-horizontal">
@@ -481,6 +489,21 @@
 								</div>
 							</div>
 								
+							<div class="row gy-2 mb-4">
+								<label class="col-sm-3 form-label" for="search_patient_id"></label>
+								<div class="col-sm-6" id="sr_error_div">
+									<select name="search_pathologist_id" id="search_pathologist" class="form-select patient_search" placeholder="Select an Pathologist" data-search="true">
+										<?php
+											if(count($pathologist_list_arr) > 0){
+												foreach($pathologist_list_arr as $pathologist_list){
+													echo '<option value="'.$pathologist_list['id'].'">'.ucwords(strtolower($pathologist_list['name'])).'</option>';
+												}
+											}
+										?>
+									</select>
+								</div>
+							</div>						
+
 							<div class="row gy-2 mb-4" id="patient_det_show_div" style="<?php echo ($reg_patient_id == 0) ? 'display: none;' : '' ?>">
 								<label class="col-sm-3 form-label text-right" for="inputHorizontalElOne"></label>
 								<div class="col-sm-6">
