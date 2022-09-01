@@ -49,6 +49,10 @@
 		}
 	}
 	
+	$pathologist_list_sql	= mysqli_query($link, "SELECT * FROM pathologists_list where id = '".$patien_report_details_arr[0]['pathologist_id']."';");
+	$pathologist_list_arr = mysqli_fetch_all($pathologist_list_sql, MYSQLI_ASSOC);
+
+	//echo '<pre>'; print_r(PHYSICAL_PATH); echo '</pre>';
 ?>	
 
 <!-- Page Header-->
@@ -191,10 +195,16 @@
 							<div class="col-sm-10" style="text-align: center;">
 								<div class="row">
 									<div class="col-sm-6">
+										<span style="padding-bottom: 15px;">&nbsp;</span>
+										<br>
 										<span>Signature of <br>Medical Technologist (Lab)</span>
 									</div>
 									<div class="col-sm-6">
-										<span>Signature of <br>Medical Officer/Pathologist</span>
+										<span style="padding-bottom: 5px;"><?php echo ($pathologist_list_arr[0]['signature_path'] != '') ? '<img style="width: 200px;" alt="" src="'.$site_url.'signature_path/'.$pathologist_list_arr[0]['signature_path'].'" >' : '' ?></span>
+										<br>
+										<span>Signature of Medical Officer/Pathologist</span>
+										<br>
+										<span><b><?php echo ($pathologist_list_arr[0]['name'] != '') ? $pathologist_list_arr[0]['name'] : '' ?><b></span>
 									</div>
 								</div>
 							</div>

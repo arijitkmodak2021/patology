@@ -66,7 +66,7 @@
 									<div class="progress-bar bg-violet" role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 							</div>
-							<div class="number"><strong class="text-lg">25</strong></div>
+							<div class="number"><strong class="text-lg"></strong></div>
 						</div>
 					</div>
 					<!-- Item -->
@@ -85,7 +85,7 @@
 						</div>
 					</div>
 					<!-- Item -->
-					<div class="col-xl-3 col-sm-6 py-4 border-lg-end border-gray-200">
+					<div class="col-xl-3 col-sm-6 py-4 border-lg-end border-gray-200 hide">
 						<div class="d-flex align-items-center">
 							<div class="icon flex-shrink-0 bg-green">
 								<svg class="svg-icon svg-icon-sm svg-icon-heavy"> <use xlink:href="#numbers-1"> </use> </svg>
@@ -100,7 +100,7 @@
 						</div>
 					</div>
 					<!-- Item -->
-					<div class="col-xl-3 col-sm-6 py-4">
+					<div class="col-xl-3 col-sm-6 py-4 hide">
 						<div class="d-flex align-items-center">
 							<div class="icon flex-shrink-0 bg-orange">
 								<svg class="svg-icon svg-icon-sm svg-icon-heavy"> <use xlink:href="#list-details-1"> </use> </svg>
