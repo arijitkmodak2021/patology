@@ -183,8 +183,8 @@
 											echo	'<td style="text-align: center;">'.ucwords(strtolower($test_cat_val)).'</td>';
 											echo	'<td style="text-align: center;">'.date("F j, Y, g:i a", strtotime($type_data['create_date'])).'</td>';
 											echo	'<td style="text-align: center;">
-													<a class="opt_button" href="'.$site_url.'view-test-details/'.$type_data['report_id'].'"><span><i class="far fa-eye"></i></span></a>
-													<a class="opt_button" href="'.$site_url.'edit-test-details/'.$type_data['report_id'].'"><span><i class="far fa-edit"></i></span></a>
+													<a class="opt_button hide" href="'.$site_url.'view-test-details/'.$type_data['report_id'].'"><span><i class="far fa-eye"></i></span></a>
+													<a class="opt_button" href="'.$site_url.'edit-test-report/'.$type_data['report_id'].'"><span><i class="far fa-edit"></i></span></a>
 													<a class="opt_button" href="'.$site_url.'print-report/'.$type_data['report_id'].'"><span><i class="far fa-file-pdf"></i></span></a>
 												</td>';
 										echo '</tr>';

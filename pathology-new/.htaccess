@@ -20,6 +20,9 @@ RewriteRule ^test-types/([0-9]*)/([a-z|A-Z|0-9|_|\-|=|&]*)/([0-9]*)$ index.php?p
 RewriteRule ^generate-test-report$				index.php?pages=create_test_report
 RewriteRule ^generate-test-report/([0-9]*)$		index.php?pages=create_test_report&patient_id=$1
 
+RewriteRule ^edit-test-report$				index.php?pages=edit_test_report
+RewriteRule ^edit-test-report/([0-9]*)$		index.php?pages=edit_test_report&reort_id=$1
+
 RewriteRule ^test-reports$					index.php?pages=test_reports
 RewriteRule ^test-reports/([0-9]*)$			index.php?pages=test_reports&page_no=$1
 RewriteRule ^test-reports/([0-9]*)/([a-z|A-Z|0-9|_|\-|=|&]*)$ 	index.php?pages=test_reports&page_no=$1&test_cat_name=$2

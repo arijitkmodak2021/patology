@@ -8,23 +8,26 @@
 	    header("Location:".$site_url."test-reports");
 	}
 	
-	$report_id				= (isset($_REQUEST['report_id']) && !empty($_REQUEST['report_id'])) ? $_REQUEST['report_id'] : 0;
+	$report_id					= (isset($_REQUEST['report_id']) && !empty($_REQUEST['report_id'])) ? $_REQUEST['report_id'] : 0;
 	$patien_report_details_sql	= mysqli_query($link, "SELECT * FROM patient_tests where id = '".$report_id."';");
 	$patien_report_details_arr 	= mysqli_fetch_all($patien_report_details_sql, MYSQLI_ASSOC);
 	$test_main_categories		= explode(', ',$patien_report_details_arr[0]['test_main_categories']);
 	//echo '<pre>';print_r($test_main_categories); echo '</pre>';
 	
-	$patient_id				= $patien_report_details_arr[0]['p_id'];
+	$patient_id					= $patien_report_details_arr[0]['p_id'];
 	$patien_details_sql			= mysqli_query($link, "SELECT * FROM patient_details where id = '".$patient_id."';");
 	$patien_details_arr 		= mysqli_fetch_all($patien_details_sql, MYSQLI_ASSOC);
 	
-	$report_values_sql			= mysqli_query($link, "select * from patient_report where report_id = '".$report_id." order by cat_grp_name asc, main_cat_name asc, test_type_name asc';");
+	$report_values_sql			= mysqli_query($link, "select * from patient_report where report_id = '".$report_id."' order by cat_grp_name asc, main_cat_name asc, test_type_name asc;");
 	$report_values_arr			= mysqli_fetch_all($report_values_sql, MYSQLI_ASSOC);
 	
 	$final_gen_report 			= [];
 	$each_cat_gen_report		= [];
 	$i3 						= 0;
-	$i4						= 0;
+	$i4							= 0;
+
+
+
 	
 	for ($i2 = 0; $i2 < count($report_values_arr); $i2++) {
 		
@@ -165,9 +168,41 @@
 													if($j == 0)
 														echo '<p style="margin: 15px 0 0; min-height: 10px;"><b>'.ucwords(strtolower($main_cat_name)).':-</b></p>';
 													
+													$report_string			= ucwords(strtolower($report_value['result_value']));;
+													$pre_val				= 0;
+													$post_val				= 0;
+													$nrangevval 			= ($report_value['normal_range'] != '')? explode('-', $report_value['normal_range']) : [];
+														
+													if(count($nrangevval)> 0){
+														$pre_val 			= floatval(trim($nrangevval[0], ''));
+														$post_val 			= floatval(trim($nrangevval[1], ''));
+
+														if($t_value['name'] == 'HAEMOGLOBIN') {
+															$pre_val 			= 12.5;
+															$post_val 			= 15.5;
+														}
+														elseif($t_value['name'] == 'PACKED CELL VOLUME') {
+															$pre_val 			= 36;
+															$post_val 			= 54;
+														}
+														elseif($t_value['name'] == 'ESR: 1 / 2 Hour') {
+															$pre_val 			= 7;
+															$post_val 			= 15;
+														}
+														elseif($t_value['name'] == 'ESR: 1 Hour') {
+															$pre_val 			= 12;
+															$post_val 			= 17;
+														}
+
+														$resval					= floatval($report_value['result_value']);
+
+														if( $resval < $pre_val or $resval > $post_val)
+															$report_string		= '<b>'.ucwords(strtolower($report_value['result_value'])).'</b>';
+													}	
+
 													echo '<div class="each_print_div">
 															<div class="child item font-small-14">'.ucwords(strtolower($test_name)).'&nbsp;</div>
-															<div class="child item item_mid ">'.ucwords(strtolower($report_value['result_value'])).'</div>
+															<div class="child item item_mid ">'.$report_string.'</div>
 															<div class="child item normal_range font-small-13">'.$normal_range.' '.$unit.'</div>
 															<div style="clear: both"></div>
 														</div>';
