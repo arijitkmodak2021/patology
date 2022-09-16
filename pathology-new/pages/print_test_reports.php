@@ -235,7 +235,7 @@
 										<span>Signature of <br>Medical Technologist (Lab)</span>
 									</div>
 									<div class="col-sm-6">
-										<span style="padding-bottom: 5px;"><?php echo ($pathologist_list_arr[0]['signature_path'] != '') ? '<img style="width: 200px;" alt="" src="'.$site_url.'signature_path/'.$pathologist_list_arr[0]['signature_path'].'" >' : '' ?></span>
+										<span style="padding-bottom: 5px;"><?php echo ($pathologist_list_arr[0]['signature_path'] != '') ? '<img style="width: 200px;height: 50px;" alt="" src="'.$site_url.'signature_path/'.$pathologist_list_arr[0]['signature_path'].'" >' : '' ?></span>
 										<br>
 										<span>Signature of Medical Officer/Pathologist</span>
 										<br>
